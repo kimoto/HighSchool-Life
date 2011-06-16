@@ -25,7 +25,7 @@ sub main()
 	#著作権
 	my $copyright = "2004 kimoto";
 	#BBSの名前
-	my $bbs_title = "Black Earth BBS";
+	my $bbs_title = "Smart BBS";
 	#この掲示板から見たトップページ
 	my $top_page = "../";
 	#デザインが記述してあるCSSファイルのパス
