@@ -1,6 +1,6 @@
 /*
- *	MIMEŒ`®‚ÉƒGƒ“ƒR[ƒh‚ğs‚¤ŠÖ”ŒQ
- *	ƒfƒR[ƒh‚ÍƒTƒ|[ƒg‚µ‚Ä‚¢‚È‚¢
+ *	MIMEå½¢å¼ã«ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ã‚’è¡Œã†é–¢æ•°ç¾¤
+ *	ãƒ‡ã‚³ãƒ¼ãƒ‰ã¯ã‚µãƒãƒ¼ãƒˆã—ã¦ã„ãªã„
  *	mime.c
  *	2004/07/14 : program by kimoto
  */
@@ -14,22 +14,22 @@ typedef unsigned char u_char;
 static char convert_to_base(const char c);
 
 /*
- *	MIMEŒ`®‚Ìbase64‚É•ÏŠ·‚·‚é
- *	‘æˆêˆø”‚æ‚è‚à‘æ“ñˆø”‚Ìƒoƒbƒtƒ@‚ğ‘å‚«‚­‚µ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢
- *	base64•ÏŠ·‚É‚æ‚Á‚Ä•¶š—ñ‚ÌƒTƒCƒY‚ª‘‚¦‚é‚½‚ß
+ *	MIMEå½¢å¼ã®base64ã«å¤‰æ›ã™ã‚‹
+ *	ç¬¬ä¸€å¼•æ•°ã‚ˆã‚Šã‚‚ç¬¬äºŒå¼•æ•°ã®ãƒãƒƒãƒ•ã‚¡ã‚’å¤§ããã—ãªã‘ã‚Œã°ãªã‚‰ãªã„
+ *	base64å¤‰æ›ã«ã‚ˆã£ã¦æ–‡å­—åˆ—ã®ã‚µã‚¤ã‚ºãŒå¢—ãˆã‚‹ãŸã‚
  */
 extern size_t encode_to_mime_base64(const char *src,char *dest)
 {
 	size_t total_size = 0;
 
-	/*ƒwƒbƒ_‚İ‚½‚¢‚È‚Ì‚ğ’Ç‰Á*/
+	/*ãƒ˜ãƒƒãƒ€ã¿ãŸã„ãªã®ã‚’è¿½åŠ */
 	strcpy(dest,"=?ISO-2022-JP?B?");
 	total_size += strlen(dest);
 	dest += total_size;
 
 	total_size += encode_to_base64(src,dest,strlen(src));
 
-	/*I—¹ƒtƒ‰ƒO‚İ‚½‚¢‚Ì‚ğ’Ç‰Á*/
+	/*çµ‚äº†ãƒ•ãƒ©ã‚°ã¿ãŸã„ã®ã‚’è¿½åŠ */
 	strcat(dest,"?=");
 	total_size += 2;
 
@@ -37,9 +37,9 @@ extern size_t encode_to_mime_base64(const char *src,char *dest)
 }
 
 /*
- *	base64‚É•ÏŠ·‚·‚é
- *	–ß‚è’l‚ÍA•ÏŠ·Œã‚ÌƒTƒCƒY
- *	––”ö‚ÉNULL‚ğ‘ã“ü‚·‚é
+ *	base64ã«å¤‰æ›ã™ã‚‹
+ *	æˆ»ã‚Šå€¤ã¯ã€å¤‰æ›å¾Œã®ã‚µã‚¤ã‚º
+ *	æœ«å°¾ã«NULLã‚’ä»£å…¥ã™ã‚‹
  */
 extern size_t encode_to_base64(const u_char *src,u_char *dest,int size)
 {
@@ -53,7 +53,7 @@ extern size_t encode_to_base64(const u_char *src,u_char *dest,int size)
 		bb <<= 8;
 		bb |= *src;
 
-		/*3‰ñ–Ú*/
+		/*3å›ç›®*/
 		if(cnt == 3){
 			*dest++ = convert_to_base((char)((bb&(0x3F<<18))>>18));
 			*dest++ = convert_to_base((char)((bb&(0x3F<<12))>>12));
@@ -65,7 +65,7 @@ extern size_t encode_to_base64(const u_char *src,u_char *dest,int size)
 		}
 		src++;
 	}
-	/*2‰ñ–Ú*/
+	/*2å›ç›®*/
 	if(cnt == 2){
 		bb <<= 8;
 		*dest++ = convert_to_base((char)((bb&(0x3F<<18))>>18));
@@ -74,7 +74,7 @@ extern size_t encode_to_base64(const u_char *src,u_char *dest,int size)
 		*dest++ = '=';
 		total_size += 4;
 	}
-	/*1‰ñ–Ú*/
+	/*1å›ç›®*/
 	if(cnt == 1){
 		bb <<= 16;
 		*dest++ = convert_to_base((char)((bb&(0x3F<<18))>>18));
@@ -83,7 +83,7 @@ extern size_t encode_to_base64(const u_char *src,u_char *dest,int size)
 		*dest++ = '=';
 		total_size += 4;
 	}
-	/*––”ö‚ÉNULL•¶š‚ğ’Ç‰Á*/
+	/*æœ«å°¾ã«NULLæ–‡å­—ã‚’è¿½åŠ */
 	*dest = '\0';
 
 	return total_size;
@@ -91,7 +91,7 @@ extern size_t encode_to_base64(const u_char *src,u_char *dest,int size)
 
 
 /*
- *	ƒx[ƒX‚Æ‚È‚éƒAƒ‹ƒtƒ@ƒxƒbƒg“™‚É•ÏŠ·‚·‚é
+ *	ãƒ™ãƒ¼ã‚¹ã¨ãªã‚‹ã‚¢ãƒ«ãƒ•ã‚¡ãƒ™ãƒƒãƒˆç­‰ã«å¤‰æ›ã™ã‚‹
  */
 static char convert_to_base(const char c)
 {

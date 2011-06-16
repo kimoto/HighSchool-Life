@@ -1,5 +1,5 @@
 /*
- *	DNSƒNƒ‰ƒCƒAƒ“ƒgƒvƒƒOƒ‰ƒ€
+ *	DNSã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆãƒ—ãƒ­ã‚°ãƒ©ãƒ 
  *	2004/07/04
  *	program by kimoto
  *
@@ -42,13 +42,13 @@
 
 /*DNS RESOURCE RECORD*/
 typedef struct{
-	u_short	dns_type;		/*ƒ^ƒCƒv*/
-	u_short	dns_class;		/*ƒNƒ‰ƒX*/
-	int		priority;		/*—Dæ“x*/
-	int		ip_addr;		/*IPƒAƒhƒŒƒX*/
-	char	domain[256];	/*ƒhƒƒCƒ“–¼*/
-	char	query[256];		/*Æ‰ïƒ‰ƒxƒ‹*/
-	BOOL	flag;			/*ƒf[ƒ^‚ª“ü‚Á‚Ä‚¢‚é‚©*/
+	u_short	dns_type;		/*ã‚¿ã‚¤ãƒ—*/
+	u_short	dns_class;		/*ã‚¯ãƒ©ã‚¹*/
+	int		priority;		/*å„ªå…ˆåº¦*/
+	int		ip_addr;		/*IPã‚¢ãƒ‰ãƒ¬ã‚¹*/
+	char	domain[256];	/*ãƒ‰ãƒ¡ã‚¤ãƒ³å*/
+	char	query[256];		/*ç…§ä¼šãƒ©ãƒ™ãƒ«*/
+	BOOL	flag;			/*ãƒ‡ãƒ¼ã‚¿ãŒå…¥ã£ã¦ã„ã‚‹ã‹*/
 }RES_RECORD;
 
 /*MAKE DNS PACKET*/
@@ -71,24 +71,24 @@ char	*ExpandDNSLabel(char *packet,char *name_ptr,char *result);
 int	GetDNSData(char *dns_server,char *domain,int dns_id,int dns_type,char *recv_buf,int recv_buf_len);
 
 /*
- *	ƒƒCƒ“ŠÖ”
+ *	ãƒ¡ã‚¤ãƒ³é–¢æ•°
  */
 int main(int argc,char *argv[])
 {
 	char packet[MAX_BUFFER_SIZE]="";
 	RES_RECORD res[20];
 
-	/*DNSƒf[ƒ^‚ÌóM*/
+	/*DNSãƒ‡ãƒ¼ã‚¿ã®å—ä¿¡*/
 	GetDNSData("192.168.0.1","yahoo.co.jp",111,DNS_TYPE_MX,packet,sizeof(packet));
-	/*‰Šú‰»*/
+	/*åˆæœŸåŒ–*/
 	ZeroMemory(&res,sizeof(res));
-	/*óM‚µ‚½ƒf[ƒ^‚Ì‰ğÍ*/
+	/*å—ä¿¡ã—ãŸãƒ‡ãƒ¼ã‚¿ã®è§£æ*/
 	ExpandDNSPacket(packet,111,res);
 
 	int i = 0;
 	printf("***********************************\n");
 	printf("SERVER \n");
-	//MXƒŒƒR[ƒh‚Ì‚İ‚ğŒ‹‰Ê‚Æ‚µ‚Ä•\¦‚·‚é
+	//MXãƒ¬ã‚³ãƒ¼ãƒ‰ã®ã¿ã‚’çµæœã¨ã—ã¦è¡¨ç¤ºã™ã‚‹
 	while(res[i].flag == TRUE){
 		if(res[i].dns_type == DNS_TYPE_MX){
 			printf("%s - %d\n",res[i].domain,res[i].priority);
@@ -101,7 +101,7 @@ int main(int argc,char *argv[])
 }
 
 /*
- *	DNSƒf[ƒ^‚ğóM‚·‚éƒvƒƒOƒ‰ƒ€
+ *	DNSãƒ‡ãƒ¼ã‚¿ã‚’å—ä¿¡ã™ã‚‹ãƒ—ãƒ­ã‚°ãƒ©ãƒ 
  */
 int GetDNSData(char *dns_server,
 			   char *domain,
@@ -120,25 +120,25 @@ int GetDNSData(char *dns_server,
 
 	WSAStartup(MAKEWORD(1,1),&wsadata);
 
-	/*DNS—pƒ\ƒPƒbƒg‚Ìì¬(UDP)*/
+	/*DNSç”¨ã‚½ã‚±ãƒƒãƒˆã®ä½œæˆ(UDP)*/
 	sock = socket(PF_INET,SOCK_DGRAM,0);
 	if(sock == INVALID_SOCKET){
 		ErrorMessage("socket error");
 	}
-	/*DNSƒpƒPƒbƒg‚Ìì¬*/
+	/*DNSãƒ‘ã‚±ãƒƒãƒˆã®ä½œæˆ*/
 	send_size = MakeDNSPacket(dns_id,domain,
 		send_buf,DNS_RD_RECURSION,dns_type,DNS_CLASS_IN);
-	/*DNSƒpƒPƒbƒg‚Ì‘—M‚Ì‚½‚ß‚Ìİ’è*/
+	/*DNSãƒ‘ã‚±ãƒƒãƒˆã®é€ä¿¡ã®ãŸã‚ã®è¨­å®š*/
 	sockaddr_in.sin_addr.S_un.S_addr = inet_addr(dns_server);//DNSServerAddress
 	sockaddr_in.sin_family = AF_INET;
 	sockaddr_in.sin_port = htons(UDP_DNS_PORT);
-	/*DNSƒpƒPƒbƒg‚Ì‘—M*/
+	/*DNSãƒ‘ã‚±ãƒƒãƒˆã®é€ä¿¡*/
 	return_val = sendto(sock,send_buf,send_size,0,
 		(SOCKADDR *)&sockaddr_in,sizeof(sockaddr_in));
 	if(return_val == SOCKET_ERROR){
 		ErrorMessage("sendto error");
 	}
-	/*DNSƒpƒPƒbƒg‚ÌóM*/
+	/*DNSãƒ‘ã‚±ãƒƒãƒˆã®å—ä¿¡*/
 	from_len = sizeof(sockaddr_in);
 	return_val = recvfrom(sock,recv_buf,recv_buf_size,0,
 		(SOCKADDR *)&sockaddr_in,&from_len);
@@ -152,33 +152,33 @@ int GetDNSData(char *dns_server,
 }
 
 /*
- *	DNSƒpƒPƒbƒg‚ğì¬‚·‚éŠÖ”
- *	‚Ù‚Æ‚ñ‚Ç‚·‚×‚Ä‚ÌŒ`®‚É‘Î‰‚·‚éB
+ *	DNSãƒ‘ã‚±ãƒƒãƒˆã‚’ä½œæˆã™ã‚‹é–¢æ•°
+ *	ã»ã¨ã‚“ã©ã™ã¹ã¦ã®å½¢å¼ã«å¯¾å¿œã™ã‚‹ã€‚
  *
  *	2004/06/27 program by kimoto
  */
-size_t MakeDNSPacket(u_short	dns_id,		/*ƒpƒPƒbƒgID”Ô†*/
-					 char		*domain, 	/*ƒhƒƒCƒ“–¼*/
-					 char		*send_buf,	/*‘—Mƒoƒbƒtƒ@*/
-					 u_short	dns_flag,	/*ˆ—E‰“šƒR[ƒh‚Ìƒtƒ‰ƒO*/
-					 u_short	dns_type,	/*DNS‚É—v‹‚·‚éƒŒƒR[ƒh‚Ìƒ^ƒCƒv(mx,a“™)*/
-					 u_short	dns_class)	/*DNS‚ÌƒNƒ‰ƒX*/
+size_t MakeDNSPacket(u_short	dns_id,		/*ãƒ‘ã‚±ãƒƒãƒˆIDç•ªå·*/
+					 char		*domain, 	/*ãƒ‰ãƒ¡ã‚¤ãƒ³å*/
+					 char		*send_buf,	/*é€ä¿¡ãƒãƒƒãƒ•ã‚¡*/
+					 u_short	dns_flag,	/*å‡¦ç†ãƒ»å¿œç­”ã‚³ãƒ¼ãƒ‰ã®ãƒ•ãƒ©ã‚°*/
+					 u_short	dns_type,	/*DNSã«è¦æ±‚ã™ã‚‹ãƒ¬ã‚³ãƒ¼ãƒ‰ã®ã‚¿ã‚¤ãƒ—(mx,aç­‰)*/
+					 u_short	dns_class)	/*DNSã®ã‚¯ãƒ©ã‚¹*/
 {
 	u_short *us_ptr;
 	size_t total_size;
 	
-	/*16bit(2byte)‚ÅƒAƒNƒZƒX‚·‚é‚½‚ß‚Ìƒ|ƒCƒ“ƒ^*/
+	/*16bit(2byte)ã§ã‚¢ã‚¯ã‚»ã‚¹ã™ã‚‹ãŸã‚ã®ãƒã‚¤ãƒ³ã‚¿*/
 	us_ptr = (u_short *)send_buf;
 
-	us_ptr[0] = htons(dns_id);		/*¯•Ê”Ô†*/
-	us_ptr[1] = htons(dns_flag);	/*ˆ—E‰“šƒR[ƒh(Ä‹A“I–â‚¢‡‚í‚¹)*/
-	us_ptr[2] = htons(1);			/*¿–â•”‚Ì—v‘f”*/
-	us_ptr[3] = htons(0);			/*‰ñ“š•”‚Ì—v‘f”*/
-	us_ptr[4] = htons(0);			/*ƒI[ƒ\ƒŠƒeƒB•”‚Ì—v‘f”*/
-	us_ptr[5] = htons(0);			/*’Ç‰Áî•ñ•”‚Ì—v‘f”*/
+	us_ptr[0] = htons(dns_id);		/*è­˜åˆ¥ç•ªå·*/
+	us_ptr[1] = htons(dns_flag);	/*å‡¦ç†ãƒ»å¿œç­”ã‚³ãƒ¼ãƒ‰(å†å¸°çš„å•ã„åˆã‚ã›)*/
+	us_ptr[2] = htons(1);			/*è³ªå•éƒ¨ã®è¦ç´ æ•°*/
+	us_ptr[3] = htons(0);			/*å›ç­”éƒ¨ã®è¦ç´ æ•°*/
+	us_ptr[4] = htons(0);			/*ã‚ªãƒ¼ã‚½ãƒªãƒ†ã‚£éƒ¨ã®è¦ç´ æ•°*/
+	us_ptr[5] = htons(0);			/*è¿½åŠ æƒ…å ±éƒ¨ã®è¦ç´ æ•°*/
 	total_size = 12;
 	
-	/*¿–â•”‚ğì¬*/
+	/*è³ªå•éƒ¨ã‚’ä½œæˆ*/
 	total_size += MakeDNSQuery((char *)&us_ptr[6],domain,dns_type,dns_class);
 	
 	return total_size;
@@ -186,7 +186,7 @@ size_t MakeDNSPacket(u_short	dns_id,		/*ƒpƒPƒbƒgID”Ô†*/
 
 
 /*
- *	DNSƒpƒPƒbƒg‚Ì¿–âƒŒƒR[ƒh‚ğì¬‚·‚éŠÖ”
+ *	DNSãƒ‘ã‚±ãƒƒãƒˆã®è³ªå•ãƒ¬ã‚³ãƒ¼ãƒ‰ã‚’ä½œæˆã™ã‚‹é–¢æ•°
  */
 size_t MakeDNSQuery(char *packet,
 					char *domain,
@@ -196,22 +196,22 @@ size_t MakeDNSQuery(char *packet,
 	int total_size = 0;
 	u_short *us_ptr;
 	
-	/*Æ‰ïƒ‰ƒxƒ‹‚ğì¬*/
+	/*ç…§ä¼šãƒ©ãƒ™ãƒ«ã‚’ä½œæˆ*/
 	total_size = MakeDNSQueryLabel(domain,packet);
 	packet += total_size;
 	
-	/*Æ‰ïƒ^ƒCƒvAƒNƒ‰ƒX‚ğì¬*/
+	/*ç…§ä¼šã‚¿ã‚¤ãƒ—ã€ã‚¯ãƒ©ã‚¹ã‚’ä½œæˆ*/
 	us_ptr = (u_short *)packet;
 	us_ptr[0] = htons(dns_type);
 	us_ptr[1] = htons(dns_class);
 	
-	/*Æ‰ïƒ‰ƒxƒ‹‚Í2byte,Æ‰ïƒNƒ‰ƒX‚à2byte*/
+	/*ç…§ä¼šãƒ©ãƒ™ãƒ«ã¯2byte,ç…§ä¼šã‚¯ãƒ©ã‚¹ã‚‚2byte*/
 	return total_size + 2 + 2;
 }
 
 
 /*
- *	w’è‚³‚ê‚½ƒhƒƒCƒ“–¼‚©‚çÆ‰ï—pƒ‰ƒxƒ‹‚ğì¬‚·‚éŠÖ”
+ *	æŒ‡å®šã•ã‚ŒãŸãƒ‰ãƒ¡ã‚¤ãƒ³åã‹ã‚‰ç…§ä¼šç”¨ãƒ©ãƒ™ãƒ«ã‚’ä½œæˆã™ã‚‹é–¢æ•°
  */
 size_t MakeDNSQueryLabel(char *src,
 						 char *result)
@@ -229,16 +229,16 @@ size_t MakeDNSQueryLabel(char *src,
 	while(token != NULL){
 		token_len = strlen(token);
 		total_size += token_len;
-		/*token_len‚ğo—Í‚·‚é*/
+		/*token_lenã‚’å‡ºåŠ›ã™ã‚‹*/
 		*result_ptr++ = token_len;
 		total_size++;
-		/*token‚ğo—Í‚·‚é*/
+		/*tokenã‚’å‡ºåŠ›ã™ã‚‹*/
 		for(i=0;i<token_len;i++){
 			*result_ptr++ = *token++;
 		}
 		token = strtok(NULL,".");
 	}
-	/*––”ö‚ÍA0*/
+	/*æœ«å°¾ã¯ã€0*/
 	*result_ptr++ = 0;
 	total_size++;
 
@@ -249,42 +249,42 @@ size_t MakeDNSQueryLabel(char *src,
 
 
 /*
- *	DNSƒpƒPƒbƒg‚Ì‰ğÍA’Šo
+ *	DNSãƒ‘ã‚±ãƒƒãƒˆã®è§£æã€æŠ½å‡º
  */
-int ExpandDNSPacket(char *recv_buf,		/*DNSƒpƒPƒbƒg*/
-					int dns_id,			/*¯•Ê”Ô†*/
-					RES_RECORD *res)	/*Œ‹‰Ê‚Í‚±‚±‚É“ü‚é*/
+int ExpandDNSPacket(char *recv_buf,		/*DNSãƒ‘ã‚±ãƒƒãƒˆ*/
+					int dns_id,			/*è­˜åˆ¥ç•ªå·*/
+					RES_RECORD *res)	/*çµæœã¯ã“ã“ã«å…¥ã‚‹*/
 {
 	//16bit(2byte) , 8bit(1byte) span pointer
 	u_short *us_ptr;
 	char *strptr;
 
-	int questions_num;		/*¿–âƒŒƒR[ƒh”*/
-	int answer_num;			/*‰ñ“šƒŒƒR[ƒh”*/
-	int authority_num;		/*Œ ˆĞƒŒƒR[ƒh”*/
-	int additional_num;		/*’Ç‰ÁƒŒƒR[ƒh”*/
+	int questions_num;		/*è³ªå•ãƒ¬ã‚³ãƒ¼ãƒ‰æ•°*/
+	int answer_num;			/*å›ç­”ãƒ¬ã‚³ãƒ¼ãƒ‰æ•°*/
+	int authority_num;		/*æ¨©å¨ãƒ¬ã‚³ãƒ¼ãƒ‰æ•°*/
+	int additional_num;		/*è¿½åŠ ãƒ¬ã‚³ãƒ¼ãƒ‰æ•°*/
 	
 	us_ptr = (u_short *)recv_buf;
-	/*¯•Ê”Ô†‚Ìƒ`ƒFƒbƒN*/
+	/*è­˜åˆ¥ç•ªå·ã®ãƒã‚§ãƒƒã‚¯*/
 	if(ntohs(us_ptr[0]) != dns_id){
-		DebugPrint("Packet‚Ì¯•Ê”Ô†‚ªA‘—M‚Ì‚à‚Ì‚Æˆá‚¢‚Ü‚·B");
+		DebugPrint("Packetã®è­˜åˆ¥ç•ªå·ãŒã€é€ä¿¡æ™‚ã®ã‚‚ã®ã¨é•ã„ã¾ã™ã€‚");
 		return -1;
 	}
-	/*ƒtƒ‰ƒO‚Ìƒ`ƒFƒbƒN*/
+	/*ãƒ•ãƒ©ã‚°ã®ãƒã‚§ãƒƒã‚¯*/
 	if((ntohs(us_ptr[1]) & 0x000f) != 0){
-		DebugPrint("‰“šƒpƒPƒbƒg‚Å‚Í‚ ‚è‚Ü‚¹‚ñB");
+		DebugPrint("å¿œç­”ãƒ‘ã‚±ãƒƒãƒˆã§ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚");
 		return -1;
 	}
-	/*¿–â”A‰ñ“š”AŒ ˆĞ”A’Ç‰ÁRR”‚Ìæ“¾*/
-	questions_num = ntohs(us_ptr[2]);	//¿–â”
-	answer_num = ntohs(us_ptr[3]);		//‰ñ“š”
-	authority_num = ntohs(us_ptr[4]);	//Œ ˆĞ”
-	additional_num = ntohs(us_ptr[5]);	//’Ç‰Á”
+	/*è³ªå•æ•°ã€å›ç­”æ•°ã€æ¨©å¨æ•°ã€è¿½åŠ RRæ•°ã®å–å¾—*/
+	questions_num = ntohs(us_ptr[2]);	//è³ªå•æ•°
+	answer_num = ntohs(us_ptr[3]);		//å›ç­”æ•°
+	authority_num = ntohs(us_ptr[4]);	//æ¨©å¨æ•°
+	additional_num = ntohs(us_ptr[5]);	//è¿½åŠ æ•°
 
-	//¿–â•”ƒŒƒR[ƒh‚ÌŠJn“_
+	//è³ªå•éƒ¨ãƒ¬ã‚³ãƒ¼ãƒ‰ã®é–‹å§‹ç‚¹
 	strptr = (char *)&us_ptr[6];
 
-	//ƒŒƒR[ƒh‚©‚çƒf[ƒ^‚ğæ“¾‚·‚é
+	//ãƒ¬ã‚³ãƒ¼ãƒ‰ã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã™ã‚‹
 	ExpandDNSRecords(recv_buf,strptr,res,
 		questions_num,answer_num,authority_num,additional_num);
 
@@ -293,31 +293,31 @@ int ExpandDNSPacket(char *recv_buf,		/*DNSƒpƒPƒbƒg*/
 
 
 /*
- *	DNSƒT[ƒo[‚©‚ç‘—‚ç‚ê‚Ä‚«‚½ƒŒƒR[ƒh‚ğ‰ğÍ‚·‚éŠÖ”
+ *	DNSã‚µãƒ¼ãƒãƒ¼ã‹ã‚‰é€ã‚‰ã‚Œã¦ããŸãƒ¬ã‚³ãƒ¼ãƒ‰ã‚’è§£æã™ã‚‹é–¢æ•°
  */
-int ExpandDNSRecords(char		*packet,		/*DNSƒpƒPƒbƒg*/
+int ExpandDNSRecords(char		*packet,		/*DNSãƒ‘ã‚±ãƒƒãƒˆ*/
 					 char		*pch,
-					 RES_RECORD	*res,			/*ƒŠƒ\[ƒXƒŒƒR[ƒhŠi”[—p*/
-					 int		query,			/*¿–âƒŒƒR[ƒh”*/
-					 int		answer,			/*‰ñ“šƒŒƒR[ƒh”*/
-					 int		authority,		/*Œ ˆĞƒŒƒR[ƒh”*/
-					 int		add)			/*’Ç‰ÁƒŒƒR[ƒh”*/
+					 RES_RECORD	*res,			/*ãƒªã‚½ãƒ¼ã‚¹ãƒ¬ã‚³ãƒ¼ãƒ‰æ ¼ç´ç”¨*/
+					 int		query,			/*è³ªå•ãƒ¬ã‚³ãƒ¼ãƒ‰æ•°*/
+					 int		answer,			/*å›ç­”ãƒ¬ã‚³ãƒ¼ãƒ‰æ•°*/
+					 int		authority,		/*æ¨©å¨ãƒ¬ã‚³ãƒ¼ãƒ‰æ•°*/
+					 int		add)			/*è¿½åŠ ãƒ¬ã‚³ãƒ¼ãƒ‰æ•°*/
 {
 	int i;
 	int cnt = 0;
 
-	/*¿–â•”ƒŒƒR[ƒh‚ğ‰ğÍAæ“¾‚·‚é*/
+	/*è³ªå•éƒ¨ãƒ¬ã‚³ãƒ¼ãƒ‰ã‚’è§£æã€å–å¾—ã™ã‚‹*/
 	pch = SkipQuestionsRecord(packet,pch);
 
-	/*‰ñ“š•”ƒŒƒR[ƒh‚ğ‰ğÍAæ“¾‚·‚é*/
+	/*å›ç­”éƒ¨ãƒ¬ã‚³ãƒ¼ãƒ‰ã‚’è§£æã€å–å¾—ã™ã‚‹*/
 	for(i=0;i<answer;i++)
 		pch = ExpandDNSResRecords(packet,pch,&res[cnt++]);
 	
-	/*Œ ˆĞ•”ƒŒƒR[ƒh‚ğ‰ğÍAæ“¾‚·‚é*/
+	/*æ¨©å¨éƒ¨ãƒ¬ã‚³ãƒ¼ãƒ‰ã‚’è§£æã€å–å¾—ã™ã‚‹*/
 	for(i=0;i<authority;i++)
 		pch = ExpandDNSResRecords(packet,pch,&res[cnt++]);
 
-	/*’Ç‰Á•”ƒŒƒR[ƒh‚ğ‰ğÍAæ“¾‚·‚é*/
+	/*è¿½åŠ éƒ¨ãƒ¬ã‚³ãƒ¼ãƒ‰ã‚’è§£æã€å–å¾—ã™ã‚‹*/
 	for(i=0;i<add;i++)
 		pch = ExpandDNSResRecords(packet,pch,&res[cnt++]);
 	
@@ -326,17 +326,17 @@ int ExpandDNSRecords(char		*packet,		/*DNSƒpƒPƒbƒg*/
 
 
 /*
- *	¿–â•”‚ğƒXƒLƒbƒv‚·‚é
+ *	è³ªå•éƒ¨ã‚’ã‚¹ã‚­ãƒƒãƒ—ã™ã‚‹
  */
-char *SkipQuestionsRecord(char *packet,		/*ƒpƒPƒbƒgæ“ª•”*/
-						  char *top_ptr)	/*¿–â•”ƒŒƒR[ƒh‚ÌŠJn“_*/
+char *SkipQuestionsRecord(char *packet,		/*ãƒ‘ã‚±ãƒƒãƒˆå…ˆé ­éƒ¨*/
+						  char *top_ptr)	/*è³ªå•éƒ¨ãƒ¬ã‚³ãƒ¼ãƒ‰ã®é–‹å§‹ç‚¹*/
 {
 	char buffer[256]="";
 	u_short *us_ptr;	//unsigned short pointer.
 	
-	/*Æ‰ï–¼‚ğ”ò‚Î‚·*/
+	/*ç…§ä¼šåã‚’é£›ã°ã™*/
 	top_ptr = ExpandDNSLabel(packet,top_ptr,buffer);
-	/*Æ‰ïƒNƒ‰ƒXAƒ^ƒCƒv‚ğ”ò‚Î‚·*/
+	/*ç…§ä¼šã‚¯ãƒ©ã‚¹ã€ã‚¿ã‚¤ãƒ—ã‚’é£›ã°ã™*/
 	us_ptr = (u_short *)top_ptr;
 		
 	return (char *)&us_ptr[2];
@@ -344,7 +344,7 @@ char *SkipQuestionsRecord(char *packet,		/*ƒpƒPƒbƒgæ“ª•”*/
 
 
 /*
- *	‰ñ“š•”AŒ ˆĞ•”A’Ç‰Áî•ñ•”‚ÌƒŒƒR[ƒh‚ğ’Šo‚·‚éŠÖ”
+ *	å›ç­”éƒ¨ã€æ¨©å¨éƒ¨ã€è¿½åŠ æƒ…å ±éƒ¨ã®ãƒ¬ã‚³ãƒ¼ãƒ‰ã‚’æŠ½å‡ºã™ã‚‹é–¢æ•°
  */
 char *ExpandDNSResRecords(char			*packet,
 						  char			*top_ptr,
@@ -352,21 +352,21 @@ char *ExpandDNSResRecords(char			*packet,
 {
 	u_short *us_ptr;
 
-	/*ƒf[ƒ^‚ª“ü‚é‚Ì‚ÅFLAG‚ğTRUE‚É‚·‚é*/
+	/*ãƒ‡ãƒ¼ã‚¿ãŒå…¥ã‚‹ã®ã§FLAGã‚’TRUEã«ã™ã‚‹*/
 	res->flag = TRUE;
 
-	/*Æ‰ïƒ‰ƒxƒ‹‚Ìæ“¾*/
+	/*ç…§ä¼šãƒ©ãƒ™ãƒ«ã®å–å¾—*/
 	top_ptr = ExpandDNSLabel(packet,top_ptr,res->query);
 	
-	/*ƒNƒ‰ƒXAƒ^ƒCƒv*/
+	/*ã‚¯ãƒ©ã‚¹ã€ã‚¿ã‚¤ãƒ—*/
 	us_ptr = (u_short *)top_ptr;
 	res->dns_type = ntohs(us_ptr[0]);
 	res->dns_class = ntohs(us_ptr[1]);
-	/*us_ptr[2],[3]‚ÍATTL*/
-	/*us_ptr[4]‚ÍAƒŠƒ\[ƒXƒf[ƒ^‚Ì’·‚³*/
-	/*us_ptr[5]‚ÍAƒŠƒ\[ƒXƒf[ƒ^ŠJn“_*/
+	/*us_ptr[2],[3]ã¯ã€TTL*/
+	/*us_ptr[4]ã¯ã€ãƒªã‚½ãƒ¼ã‚¹ãƒ‡ãƒ¼ã‚¿ã®é•·ã•*/
+	/*us_ptr[5]ã¯ã€ãƒªã‚½ãƒ¼ã‚¹ãƒ‡ãƒ¼ã‚¿é–‹å§‹ç‚¹*/
 
-	/*ƒŠƒ\[ƒXƒf[ƒ^‚Ìæ“¾*/
+	/*ãƒªã‚½ãƒ¼ã‚¹ãƒ‡ãƒ¼ã‚¿ã®å–å¾—*/
 	top_ptr = ExpandDNSResData(packet,(char *)&us_ptr[5],res);
 
 	return top_ptr;
@@ -374,17 +374,17 @@ char *ExpandDNSResRecords(char			*packet,
 
 
 /*
- *	ˆ³k‚³‚ê‚½–¼‘O‚ğ“WŠJ‚·‚éŠÖ”
+ *	åœ§ç¸®ã•ã‚ŒãŸåå‰ã‚’å±•é–‹ã™ã‚‹é–¢æ•°
  */
-char *ExpandDNSLabel(char *top,			/*DNSPacketæ“ªˆÊ’u*/
-					 char *source,		/*–¼‘O‚ÌˆÊ’u*/
-					 char *result)		/*Œ‹‰Ê‚ğo—Í‚·‚éƒoƒbƒtƒ@*/
+char *ExpandDNSLabel(char *top,			/*DNSPacketå…ˆé ­ä½ç½®*/
+					 char *source,		/*åå‰ã®ä½ç½®*/
+					 char *result)		/*çµæœã‚’å‡ºåŠ›ã™ã‚‹ãƒãƒƒãƒ•ã‚¡*/
 {
 	int len,i;
 	char *temp;
 	
 	while((len = *source++) != 0){
-		/*ˆ³k‚³‚ê‚Ä‚¢‚½*/
+		/*åœ§ç¸®ã•ã‚Œã¦ã„ãŸæ™‚*/
 		if((len & 0xC0) == 0xC0){
 			temp = top + *source;
 			ExpandDNSLabel(top,temp,result);
@@ -401,11 +401,11 @@ char *ExpandDNSLabel(char *top,			/*DNSPacketæ“ªˆÊ’u*/
 
 
 /*
- *	ƒŠƒ\[ƒXƒf[ƒ^‚Ìæ“¾‚ğ‚·‚é
+ *	ãƒªã‚½ãƒ¼ã‚¹ãƒ‡ãƒ¼ã‚¿ã®å–å¾—ã‚’ã™ã‚‹
  */
-char *ExpandDNSResData(char			*packet,	/*ƒpƒPƒbƒg*/
-					   char			*res_ptr,	/*ƒŠƒ\[ƒXƒf[ƒ^ŠJn“_*/
-					   RES_RECORD	*res)		/*ƒ^ƒCƒv*/
+char *ExpandDNSResData(char			*packet,	/*ãƒ‘ã‚±ãƒƒãƒˆ*/
+					   char			*res_ptr,	/*ãƒªã‚½ãƒ¼ã‚¹ãƒ‡ãƒ¼ã‚¿é–‹å§‹ç‚¹*/
+					   RES_RECORD	*res)		/*ã‚¿ã‚¤ãƒ—*/
 {
 	char buffer[MAX_BUFFER_SIZE]="";
 	u_short *us_ptr = NULL;
@@ -415,7 +415,7 @@ char *ExpandDNSResData(char			*packet,	/*ƒpƒPƒbƒg*/
 	/*IP ADDRESS*/
 	case DNS_TYPE_A:
 		i_ptr = (int *)res_ptr;
-		/*IPƒAƒhƒŒƒX‚Ìæ“¾*/
+		/*IPã‚¢ãƒ‰ãƒ¬ã‚¹ã®å–å¾—*/
 		res->ip_addr = *i_ptr++;
 		return (char *)i_ptr;
 	/*NAME SERVER*/
@@ -428,11 +428,11 @@ char *ExpandDNSResData(char			*packet,	/*ƒpƒPƒbƒg*/
 	/*MAIL EXCHANGER*/
 	case DNS_TYPE_MX:
 		us_ptr = (u_short *)res_ptr;
-		/*—Dæ“x‚Ìæ“¾*/
+		/*å„ªå…ˆåº¦ã®å–å¾—*/
 		res->priority = ntohs(*us_ptr++);
 		return ExpandDNSLabel(packet,(char *)us_ptr,res->domain);
 	default:
-		DebugPrint("–¢’m‚ÌŒ`®‚Å‚·B");
+		DebugPrint("æœªçŸ¥ã®å½¢å¼ã§ã™ã€‚");
 		return NULL;
 	}
 	return res_ptr;

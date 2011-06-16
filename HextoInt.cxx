@@ -1,14 +1,14 @@
 /*
- *	16$B?J?tJQ49%3!<%I(B
+ *	16進数変換コード
  *	Created by kimoto.
  */
 
 #include <stdio.h>
 #include <string.h>
 
-// 16$B?J?tJ8;z$r(B
-// $B?t;z$KJQ49$9$kJd=u4X?t(B
-// 16$B?J?t$G$J$$J8;z$@$C$?>l9g(B $BIi$NCM(B $B$rJV$9(B
+// 16進数文字を
+// 数字に変換する補助関数
+// 16進数でない文字だった場合 負の値 を返す
 inline
 int AtoH(char hex)
 {
@@ -26,8 +26,8 @@ int AtoH(char hex)
 	return 0;
 }
 
-// 16$B?J?tJ8;zNs$rJQ49$7$F?t;z$K$9$k(B
-// $BJQ49$G$-$J$$J8;z$,$"$C$?$H$-(B -1 $B$rJV$9(B
+// 16進数文字列を変換して数字にする
+// 変換できない文字があったとき -1 を返す
 int HextoInt(char *hex)
 {
 	int value = 0;
@@ -50,7 +50,7 @@ int main()
 	char *hex = "e1";
 	int n = 0;
 
-	// $B$^$:$$(B overflow $B$7$F$?(B!!
+	// まずい overflow してた!!
 	n = HextoInt( hex );
 	printf("hex[%s] => int[%d];\n", hex, n);
 	return 0;

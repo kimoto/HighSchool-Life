@@ -1,12 +1,12 @@
 /*
- *	ƒŠƒ\[ƒX‚Ì"StringTable"‚ğŠy‚Ég‚¤‚½‚ß‚ÌŠÖ”ŒQ
+ *	ãƒªã‚½ãƒ¼ã‚¹ã®"StringTable"ã‚’æ¥½ã«ä½¿ã†ãŸã‚ã®é–¢æ•°ç¾¤
  */
 #include <windows.h>
 
 #define MAX_BUFFER_SIZE 1024
 
 /*
- *	StringTable‚©‚ç“Ç‚İ‚ñ‚ÅSendMessage‚·‚é
+ *	StringTableã‹ã‚‰èª­ã¿è¾¼ã‚“ã§SendMessageã™ã‚‹
  */
 extern BOOL StringTableSendMessage(HWND hWnd,UINT msg,UINT uID)
 {
@@ -17,8 +17,8 @@ extern BOOL StringTableSendMessage(HWND hWnd,UINT msg,UINT uID)
 	return TRUE;
 }
 /*
- *	StringTable‚©‚ç“Ç‚İ‚ñ‚ÅSendMessage‚µ‚½Œã‚ÉA
- *	w’è‚µ‚½Beep‰¹‚ğ–Â‚ç‚·
+ *	StringTableã‹ã‚‰èª­ã¿è¾¼ã‚“ã§SendMessageã—ãŸå¾Œã«ã€
+ *	æŒ‡å®šã—ãŸBeepéŸ³ã‚’é³´ã‚‰ã™
  */
 extern BOOL StringTableSendMessageBeep(HWND hWnd,UINT msg,UINT uID,UINT uType)
 {
@@ -28,7 +28,7 @@ extern BOOL StringTableSendMessageBeep(HWND hWnd,UINT msg,UINT uID,UINT uType)
 	return TRUE;
 }
 /*
- *	StringTable‚©‚ç“Ç‚İ‚ñ‚ÅMessageBox‚·‚é
+ *	StringTableã‹ã‚‰èª­ã¿è¾¼ã‚“ã§MessageBoxã™ã‚‹
  */
 extern BOOL StringTableMsgBox(HWND hWnd,UINT uID,char *caption,UINT uType)
 {
@@ -41,7 +41,7 @@ extern BOOL StringTableMsgBox(HWND hWnd,UINT uID,char *caption,UINT uType)
 }
 
 /*
- *	StringTable‚©‚ç“Ç‚İ‚ñ‚ÅSetWindowText‚·‚é
+ *	StringTableã‹ã‚‰èª­ã¿è¾¼ã‚“ã§SetWindowTextã™ã‚‹
  */
 extern BOOL StringTableSetWindowText(HWND hWnd,UINT uID)
 {

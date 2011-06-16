@@ -1,12 +1,12 @@
 #!/usr/bin/perl
 
 =info
- 	 $B2hA|O"HV@8@.%9%/%j%W%H(B
+ 	 画像連番生成スクリプト
 
-	http://test.com/image[01-100].jpg $B7A<0$N%"%I%l%9$+$i(B
-	http://test.com/image/1.jpg$B7A<0$N%"%I%l%9$r=PNO(B
+	http://test.com/image[01-100].jpg 形式のアドレスから
+	http://test.com/image/1.jpg形式のアドレスを出力
 
-	http://test.com/image/01.jpg$B7A<0$G$b=PNO$G$-$k$h$&$K2~NI$9$k$Y$-$+$b(B
+	http://test.com/image/01.jpg形式でも出力できるように改良するべきかも
 
 	Created by kimoto.
 =cut
@@ -26,7 +26,7 @@ while($url = shift @url_list){
 }
 
 
-# $B0J2<=PNO%5%s%W%k(B
+# 以下出力サンプル
 #./down.pl http://test.com/image/[01-10].png
 
 __DATA__

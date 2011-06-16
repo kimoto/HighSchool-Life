@@ -1,5 +1,5 @@
 /*
- *	ini�t�@�C������֘A�̊֐�
+ *	iniファイル操作関連の関数
  */
 #include <windows.h>
 
@@ -12,7 +12,7 @@
 #endif
 
 /*
- *	�ݒ��ǂݍ���ŁA�w�肵���E�B���h�E�ɔ��f������
+ *	設定を読み込んで、指定したウィンドウに反映させる
  */
 extern BOOL LoadConfig(HWND hWnd,
 				char *app,
@@ -31,7 +31,7 @@ extern BOOL LoadConfig(HWND hWnd,
 
 
 /*
- *	�E�B���h�E�̏���ǂݍ���ŁA�ݒ�t�@�C���ɔ��f������
+ *	ウィンドウの情報を読み込んで、設定ファイルに反映させる
  */
 extern BOOL SaveConfig(HWND hWnd,
 				char *app,

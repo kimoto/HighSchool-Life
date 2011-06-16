@@ -36,18 +36,18 @@ our @Permission = (
 &main;
 exit;
 
-# ¥á¥¤¥ó´Ø¿ô
+# ãƒ¡ã‚¤ãƒ³é–¢æ•°
 sub main()
 {
 	my %param = get_param();
 
-	# ´ğËÜÅª¤Ê½èÍı
+	# åŸºæœ¬çš„ãªå‡¦ç†
 	my $cmd = $param{'cmd'} || '';
 	if( $cmd eq 'upload' ){
-		# ¥¢¥Ã¥×¥í¡¼¥É½èÍı
+		# ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰å‡¦ç†
 		do_upload(%param);
 	}elsif( $cmd eq 'delete' ){
-		# ºï½ü½èÍı
+		# å‰Šé™¤å‡¦ç†
 		do_delete(%param);
 	}
 
@@ -68,7 +68,7 @@ sub main()
 	return;
 }
 
-# [1][2][3]¤ß¤¿¤¤¤Ê,¥Ú¡¼¥¸¤Î¥¤¥ó¥Ç¥Ã¥¯¥¹¤òÉ½¼¨
+# [1][2][3]ã¿ãŸã„ãª,ãƒšãƒ¼ã‚¸ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’è¡¨ç¤º
 sub show_pageindex($)
 {
 	my $newst = shift;
@@ -79,7 +79,7 @@ sub show_pageindex($)
 	$html .= qq(<p id="page_index">\n);
 	$html .= qq(\t<a href="$CGIPath?page=all">[ALL]</a>\n);
 
-	# ÀÚ¤ê¾å¤²
+	# åˆ‡ã‚Šä¸Šã’
 	my $num = $newst/$MaxView;
 	$num = ($num == int($num) ? $num : int($num+1));
 	for(1 .. $num){
@@ -90,28 +90,28 @@ sub show_pageindex($)
 	return $html;
 }
 
-# ¥Õ¥¡¥¤¥ë¤Îºï½ü½èÍı
+# ãƒ•ã‚¡ã‚¤ãƒ«ã®å‰Šé™¤å‡¦ç†
 sub do_delete(%)
 {
 	my %param = @_;
 
 	# initialize
-	$param{'num'} || error('¥Õ¥¡¥¤¥ë¤¬»ØÄê¤µ¤ì¤Æ¤¤¤Ş¤»¤ó');
-	$param{'delete_key'} || error('Delete Key¤¬ÀßÄê¤µ¤ì¤Æ¤¤¤Ş¤»¤ó');
+	$param{'num'} || error('ãƒ•ã‚¡ã‚¤ãƒ«ãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã›ã‚“');
+	$param{'delete_key'} || error('Delete KeyãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã›ã‚“');
 
-	# ¥í¥°¤òºï½ü¤¹¤ë¤È¤­¤ËÉ¬Í×¤Ë¤Ê¤ë
-	# ¥Ñ¥¹¥ï¡¼¥É¤òÀ¸À®¤¹¤ë
+	# ãƒ­ã‚°ã‚’å‰Šé™¤ã™ã‚‹ã¨ãã«å¿…è¦ã«ãªã‚‹
+	# ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã‚’ç”Ÿæˆã™ã‚‹
 	my $passwd = create_password( $param{'delete_key'} );
 	
-	# ¥í¥°¤ÎÂĞ¾İline¤òºï½ü
-	delete_log($param{'num'},$passwd) || error('Delete Key¤¬°ã¤¤¤Ş¤¹');
+	# ãƒ­ã‚°ã®å¯¾è±¡lineã‚’å‰Šé™¤
+	delete_log($param{'num'},$passwd) || error('Delete KeyãŒé•ã„ã¾ã™');
 
 	return;
 }
 
-# »ØÄê¤·¤¿ÈÖ¹æ¤Î¥í¥°¤òºï½ü¤¹¤ë
-# ¥ß¥¹¤Ã¤¿¤éundef¤¬ÊÖ¤ë
-# ¤¦¤Ş¤¯¤¤¤Ã¤¿¤étrue
+# æŒ‡å®šã—ãŸç•ªå·ã®ãƒ­ã‚°ã‚’å‰Šé™¤ã™ã‚‹
+# ãƒŸã‚¹ã£ãŸã‚‰undefãŒè¿”ã‚‹
+# ã†ã¾ãã„ã£ãŸã‚‰true
 sub delete_log($$)
 {
 	my $target_num = shift;
@@ -151,48 +151,48 @@ sub delete_log($$)
 	return 1;
 }
 
-# ¥Õ¥¡¥¤¥ë¤Î¥¢¥Ã¥×¥í¡¼¥É½èÍı
+# ãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰å‡¦ç†
 sub do_upload(%)
 {
 	my %param = @_;
 
-	# Åê¹Æ¼Ô¤ÎÆşÎÏ¥Ç¡¼¥¿¥Á¥§¥Ã¥¯
-	$param{'upfile'} || error('¥Õ¥¡¥¤¥ë¤¬ÁªÂò¤µ¤ì¤Æ¤¤¤Ş¤»¤ó');
-	$param{'comments'} || error('¥³¥á¥ó¥ÈÍó¤¬Ì¤µ­Æş¤Ç¤¹');
-	$param{'delete_key'} || error('Delete Key¤¬ÀßÄê¤µ¤ì¤Æ¤¤¤Ş¤»¤ó');
+	# æŠ•ç¨¿è€…ã®å…¥åŠ›ãƒ‡ãƒ¼ã‚¿ãƒã‚§ãƒƒã‚¯
+	$param{'upfile'} || error('ãƒ•ã‚¡ã‚¤ãƒ«ãŒé¸æŠã•ã‚Œã¦ã„ã¾ã›ã‚“');
+	$param{'comments'} || error('ã‚³ãƒ¡ãƒ³ãƒˆæ¬„ãŒæœªè¨˜å…¥ã§ã™');
+	$param{'delete_key'} || error('Delete KeyãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã›ã‚“');
 
-	length $param{'comments'} > $MaxComments && error('¥³¥á¥ó¥È¤¬Ä¹¤¹¤®¤Ş¤¹');
+	length $param{'comments'} > $MaxComments && error('ã‚³ãƒ¡ãƒ³ãƒˆãŒé•·ã™ãã¾ã™');
 
-	# ¥Õ¥¡¥¤¥ëÌ¾¤«¤é³ÈÄ¥»Ò¤Î¼èÆÀ¡¢¥Á¥§¥Ã¥¯
+	# ãƒ•ã‚¡ã‚¤ãƒ«åã‹ã‚‰æ‹¡å¼µå­ã®å–å¾—ã€ãƒã‚§ãƒƒã‚¯
 	my $msg = 0;
 	my ($ext) = $param{'upfile'}{'filename'} =~ m/[^.]*\.(.*)/;
 	unless(check_extension($ext)){
-		$msg = 'µö²Ä¤µ¤ì¤Æ¤¤¤Ê¤¤³ÈÄ¥»Ò¤Ç¤¹';
+		$msg = 'è¨±å¯ã•ã‚Œã¦ã„ãªã„æ‹¡å¼µå­ã§ã™';
 	}
 
-	# ¥Õ¥¡¥¤¥ë¥µ¥¤¥º¤Î¼èÆÀ¡¢¥Á¥§¥Ã¥¯
+	# ãƒ•ã‚¡ã‚¤ãƒ«ã‚µã‚¤ã‚ºã®å–å¾—ã€ãƒã‚§ãƒƒã‚¯
 	my $filesize = -s $param{'upfile'}{'tempfile'};
 	unless($filesize){
-		$msg = 'ÉÔÀµ¤Ê¥Õ¥¡¥¤¥ë¤¬¥¢¥Ã¥×¥í¡¼¥É¤µ¤ì¤Ş¤·¤¿';
+		$msg = 'ä¸æ­£ãªãƒ•ã‚¡ã‚¤ãƒ«ãŒã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã•ã‚Œã¾ã—ãŸ';
 	}
 	
-	# ¤³¤³¤«¤é¾å¤Ş¤Ç¤Ë¥¨¥é¡¼¤¬¤¢¤Ã¤¿¾ì¹ç
+	# ã“ã“ã‹ã‚‰ä¸Šã¾ã§ã«ã‚¨ãƒ©ãƒ¼ãŒã‚ã£ãŸå ´åˆ
 	if($msg != 0){
 		unlink($param{'upfile'}{'tempfile'}) or die $!;
 		error($msg);
 	}
 
-	# °ì»ş¥Õ¥¡¥¤¥ëÌ¾¤ò¤­¤Á¤ó¤È¤·¤¿¥¢¥Ã¥×¥Õ¥¡¥¤¥ëÌ¾¤ËÊÑ¹¹
+	# ä¸€æ™‚ãƒ•ã‚¡ã‚¤ãƒ«åã‚’ãã¡ã‚“ã¨ã—ãŸã‚¢ãƒƒãƒ—ãƒ•ã‚¡ã‚¤ãƒ«åã«å¤‰æ›´
 	my $num = get_newst_number($LogFile) + 1;
 	my $upname = sprintf('up%04d',$num);
 	rename($param{'upfile'}{'tempfile'},"$SaveDir$upname.$ext")
 			or die $!;
 
-	# delete key¤ÎÀ¸À®
+	# delete keyã®ç”Ÿæˆ
 	my $delete_key = $param{'delete_key'};
 	my $passwd = create_password($delete_key);
 
-	# ¥í¥°¥Õ¥¡¥¤¥ë¤Ë½ñ¤­¹ş¤à
+	# ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ã«æ›¸ãè¾¼ã‚€
 	write_log(
 		"$upname.$ext",
 		$param{'upfile'}{'filename'},
@@ -205,7 +205,7 @@ sub do_upload(%)
 	return;
 }
 
-# ¥Ñ¥¹¥ï¡¼¥ÉÀ¸À®
+# ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ç”Ÿæˆ
 sub create_password()
 {
 	my $str = shift;
@@ -213,7 +213,7 @@ sub create_password()
 }
 		
 
-# µö²Ä¤µ¤ì¤Æ¤¤¤ë³ÈÄ¥»Ò¤Î¥ê¥¹¥È¤òÉ½¼¨¤¹¤ë
+# è¨±å¯ã•ã‚Œã¦ã„ã‚‹æ‹¡å¼µå­ã®ãƒªã‚¹ãƒˆã‚’è¡¨ç¤ºã™ã‚‹
 sub show_permission()
 {
 	my $html = '';
@@ -228,8 +228,8 @@ sub show_permission()
 	return $html;
 }
 
-# Í¿¤¨¤é¤ì¤¿¿ô»ú¤Ë3·å¤´¤È¤Ë¥«¥ó¥Ş¤òÂÇ¤Ä,
-# ¤½¤·¤Æ¡¢¤½¤Î·ë²Ì¤òÊÖ¤¹´Ø¿ô
+# ä¸ãˆã‚‰ã‚ŒãŸæ•°å­—ã«3æ¡ã”ã¨ã«ã‚«ãƒ³ãƒã‚’æ‰“ã¤,
+# ãã—ã¦ã€ãã®çµæœã‚’è¿”ã™é–¢æ•°
 sub format_three_comma($)
 {
 	my $value = shift;
@@ -237,7 +237,7 @@ sub format_three_comma($)
 	return $value;
 }
 
-# µö²Ä¤µ¤ì¤Æ¤¤¤ë³ÈÄ¥»Ò¤«¥Á¥§¥Ã¥¯¤¹¤ë
+# è¨±å¯ã•ã‚Œã¦ã„ã‚‹æ‹¡å¼µå­ã‹ãƒã‚§ãƒƒã‚¯ã™ã‚‹
 sub check_extension($)
 {
 	my $ext = shift;
@@ -248,10 +248,10 @@ sub check_extension($)
 	return undef;
 }
 
-# ¥¢¥Ã¥×¥í¡¼¥É¤µ¤ì¤¿¥Õ¥¡¥¤¥ë¤òÉ½¼¨¤¹¤ë
+# ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«ã‚’è¡¨ç¤ºã™ã‚‹
 sub show_upfiles($$)
 {
-	# É½¼¨¥ª¥×¥·¥ç¥ó
+	# è¡¨ç¤ºã‚ªãƒ—ã‚·ãƒ§ãƒ³
 	my $page = shift;
 	my $newst = shift;
 
@@ -285,16 +285,16 @@ TABLE
 	my @data = <$fh>;
 	@data = reverse @data;
 	while(my $line = shift @data){
-		#chomp $line;	# ¹ÔËö¤Î²ş¹Ô¥³¡¼¥É¤ò¼è¤ê½ü¤¯
+		#chomp $line;	# è¡Œæœ«ã®æ”¹è¡Œã‚³ãƒ¼ãƒ‰ã‚’å–ã‚Šé™¤ã
 		my($num,$upname,$truename,$ctype,$size,$comments,$ip)
 			= split(/<>/,$line);
 
-		# »ØÄê¤µ¤ì¤¿ÈÏ°Ï¤Ç¤Ï¤Ê¤¤
+		# æŒ‡å®šã•ã‚ŒãŸç¯„å›²ã§ã¯ãªã„
 		next if($max < $num);
 		last if($min > $num);
 
-		# ¥Õ¥¡¥¤¥ë¥µ¥¤¥º¤òKBÃ±°Ì¤ËÊÑ´¹¤¹¤ë,°ì±ş¥³¥á¥ó¥È¤òÆüËÜ¸ì¤ËÊÑ´¹
-		$size = int($size / 1024 + 1) . 'KB';# ÀÚ¤ê¾å¤²
+		# ãƒ•ã‚¡ã‚¤ãƒ«ã‚µã‚¤ã‚ºã‚’KBå˜ä½ã«å¤‰æ›ã™ã‚‹,ä¸€å¿œã‚³ãƒ¡ãƒ³ãƒˆã‚’æ—¥æœ¬èªã«å¤‰æ›
+		$size = int($size / 1024 + 1) . 'KB';# åˆ‡ã‚Šä¸Šã’
 		$size = format_three_comma( $size );
 		Jcode::convert( \$comments, 'euc' );
 		
@@ -315,14 +315,14 @@ HTML
 	return $html;
 }
 
-# ¥í¥°¥Õ¥¡¥¤¥ë¤Ë½ñ¤­¹ş¤à
-# Âè°ì°ú¿ô¤Ï¡¢¥¢¥Ã¥×¤µ¤ì¤¿¥Õ¥¡¥¤¥ëÌ¾
-# ÂèÆó°ú¿ô¤Ï¡¢ËÜÅö¤Î¥Õ¥¡¥¤¥ëÌ¾
-# Âè»°°ú¿ô¤Ï¡¢Content-Type
-# Âè»Í°ú¿ô¤Ï¡¢comments
-# Âè¸Ş°ú¿ô¤Ï¡¢¥Õ¥¡¥¤¥ë¥µ¥¤¥º
-# ÂèÏ»°ú¿ô¤Ï¡¢Delete Pass
-# Âè¼·°ú¿ô¤Ï¡¢¥í¥°ÈÖ¹æ
+# ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ã«æ›¸ãè¾¼ã‚€
+# ç¬¬ä¸€å¼•æ•°ã¯ã€ã‚¢ãƒƒãƒ—ã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«å
+# ç¬¬äºŒå¼•æ•°ã¯ã€æœ¬å½“ã®ãƒ•ã‚¡ã‚¤ãƒ«å
+# ç¬¬ä¸‰å¼•æ•°ã¯ã€Content-Type
+# ç¬¬å››å¼•æ•°ã¯ã€comments
+# ç¬¬äº”å¼•æ•°ã¯ã€ãƒ•ã‚¡ã‚¤ãƒ«ã‚µã‚¤ã‚º
+# ç¬¬å…­å¼•æ•°ã¯ã€Delete Pass
+# ç¬¬ä¸ƒå¼•æ•°ã¯ã€ãƒ­ã‚°ç•ªå·
 sub write_log($$$$$$)
 {
 	my $upfile_name = shift;
@@ -333,10 +333,10 @@ sub write_log($$$$$$)
 	my $passwd = shift;
 	my $num = shift;
 
-	# Åê¹Æ¼Ô¤ÎIP¥¢¥É¥ì¥¹¤ò¼èÆÀ
+	# æŠ•ç¨¿è€…ã®IPã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’å–å¾—
 	my $ip = $ENV{'REMOTE_ADDR'} || 'Unknown';
 
-	# ¥í¥°¥Õ¥¡¥¤¥ë¤Ë½ñ¤­¹ş¤à
+	# ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ã«æ›¸ãè¾¼ã‚€
 	open(my $fh=>">> $LogFile") or die $!;
 	print $fh "$num<>$upfile_name<>$orig_name<>$ctype<>";
 	print $fh "$filesize<>$comments<>$passwd<>$ip<>\n";
@@ -362,7 +362,7 @@ sub get_newst_number($)
 	return $1;
 }
 
-# »ØÄê¤·¤¿¥Õ¥¡¥¤¥ë¤Î¹Ô¿ô¤ò¼èÆÀ¤¹¤ë
+# æŒ‡å®šã—ãŸãƒ•ã‚¡ã‚¤ãƒ«ã®è¡Œæ•°ã‚’å–å¾—ã™ã‚‹
 sub number_of_lines($)
 {
 	my $file = shift;
@@ -376,7 +376,7 @@ sub number_of_lines($)
 	return $num;
 }
 
-# CGI¤ËÅÏ¤µ¤ì¤¿¥Ç¡¼¥¿¤ò¼èÆÀ¤¹¤ë
+# CGIã«æ¸¡ã•ã‚ŒãŸãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã™ã‚‹
 sub get_param()
 {
 	my $query = '';
@@ -384,7 +384,7 @@ sub get_param()
 	my $length = $ENV{'CONTENT_LENGTH'} || 0;
 	my $ctype = $ENV{'CONTENT_TYPE'} || '';
 
-	# ¥ê¥¯¥¨¥¹¥È¥á¥½¥Ã¥ÉÊÌ¤Ë QUERY_STRING ¤ò¼èÆÀ
+	# ãƒªã‚¯ã‚¨ã‚¹ãƒˆãƒ¡ã‚½ãƒƒãƒ‰åˆ¥ã« QUERY_STRING ã‚’å–å¾—
 	if( $ctype =~ m/multipart/i ){
 		return read_multipart();
 	}else{
@@ -531,7 +531,7 @@ FOOTER
 ;
 }
 
-# ¥Ç¥Ğ¥Ã¥°»ş¤Ë»ÈÍÑ
+# ãƒ‡ãƒãƒƒã‚°æ™‚ã«ä½¿ç”¨
 sub debug_print(%)
 {
 	my %param = @_;
@@ -550,7 +550,7 @@ sub debug_print(%)
 	return $html;
 }
 
-# Multipart/form-data¤Î²òÀÏ
+# Multipart/form-dataã®è§£æ
 sub read_multipart()
 {
 	my $boundary = <STDIN>;
@@ -570,7 +570,7 @@ sub read_multipart()
 		#last unless $line;
 		last if $line eq "$boundary--";
 	
-		# header¤Î½ª¤ï¤ê
+		# headerã®çµ‚ã‚ã‚Š
 		if($line eq ''){
 			if($header{'filename'}){
 				# add tempfile
@@ -628,8 +628,8 @@ sub read_multipart()
 	return %param;
 }
 
-# »ØÄê¤·¤¿¥Ç¥£¥ì¥¯¥È¥ê¤Ë
-# ¥æ¥Ë¡¼¥¯¤Ê¥Õ¥¡¥¤¥ëÌ¾¤òÁÜ¤·½Ğ¤·¤ÆÊÖ¤¹´Ø¿ô
+# æŒ‡å®šã—ãŸãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«
+# ãƒ¦ãƒ‹ãƒ¼ã‚¯ãªãƒ•ã‚¡ã‚¤ãƒ«åã‚’æœã—å‡ºã—ã¦è¿”ã™é–¢æ•°
 sub create_tempfile($)
 {
 	my $dir = shift;
@@ -641,8 +641,8 @@ sub create_tempfile($)
 	return $dir . $str;
 }
 
-# ¥¨¥é¡¼¥á¥Ã¥»¡¼¥¸¤ò½ĞÎÏ¤·¤Æ
-# ¥¹¥¯¥ê¥×¥È¤ò¶¯À©½ªÎ»¤¹¤ë
+# ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å‡ºåŠ›ã—ã¦
+# ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’å¼·åˆ¶çµ‚äº†ã™ã‚‹
 sub error($)
 {
 	my $msg = shift;

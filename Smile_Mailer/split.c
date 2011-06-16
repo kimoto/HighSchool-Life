@@ -1,12 +1,12 @@
 /*
- *	•¶š—ñ‘€ì‚ÅAæ‚èo‚µ‚½‚è•ÏŠ·‚µ‚½‚è‚Æ‚¢‚Á‚½ŠÖ”
+ *	æ–‡å­—åˆ—æ“ä½œã§ã€å–ã‚Šå‡ºã—ãŸã‚Šå¤‰æ›ã—ãŸã‚Šã¨ã„ã£ãŸé–¢æ•°
  */
 #include <string.h>
 #include "split.h"
 
 /*
- *	ƒ[ƒ‹ƒAƒhƒŒƒX‚©‚çƒhƒƒCƒ“–¼‚ğØ‚èo‚·
- *	¬Œ÷‚µ‚½‚ç0‚ğ•Ô‚·
+ *	ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ã‹ã‚‰ãƒ‰ãƒ¡ã‚¤ãƒ³åã‚’åˆ‡ã‚Šå‡ºã™
+ *	æˆåŠŸã—ãŸã‚‰0ã‚’è¿”ã™
  */
 extern int SplitDomainName(char *address,char *dest)
 {
@@ -27,7 +27,7 @@ extern int SplitDomainName(char *address,char *dest)
 
 
 /*
- *	ƒtƒ‹ƒpƒX–¼‚©‚ç’¼‘O‚ÌƒfƒBƒŒƒNƒgƒŠ–¼‚¾‚¯‚É‚·‚é
+ *	ãƒ•ãƒ«ãƒ‘ã‚¹åã‹ã‚‰ç›´å‰ã®ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªåã ã‘ã«ã™ã‚‹
  */
 extern int SplitDirectoryName(char *filepath,char *result)
 {

@@ -1,5 +1,5 @@
 //======================================================
-//		�t�@�C�A�E�H�[���ђʃT���v��
+//		ファイアウォール貫通サンプル
 //		2004/08/19	by kimoto
 //======================================================
 #include <windows.h>
@@ -9,21 +9,21 @@
 #include "resource.h"
 
 //======================================================
-//		�}�N���̒�`
+//		マクロの定義
 //======================================================
 #define SMTP_PORT_NUMBER 25
 
 #define MSGBOX(msg) MessageBox(NULL,msg,"Check",MB_OK);
 
 //======================================================
-//		�֐��̃v���g�^�C�v�̐錾
+//		関数のプロトタイプの宣言
 //======================================================
 BOOL SendMail(HWND);
 int vsend(SOCKET sock,char *format,...);
 LRESULT CALLBACK DlgProc(HWND,UINT,WPARAM,LPARAM);
 
 //======================================================
-//		DLL�̃��C���֐�(�G���g���|�C���g�j
+//		DLLのメイン関数(エントリポイント）
 //======================================================
 BOOL WINAPI DllMain(HANDLE hModule,
 					DWORD dwReason,
@@ -31,10 +31,10 @@ BOOL WINAPI DllMain(HANDLE hModule,
 {
 	switch(dwReason){
 	
-	//DLL�������������Ƃ��ɌĂ΂��
+	//DLLが初期化されるときに呼ばれる
 	case DLL_PROCESS_ATTACH:
 
-		//�ݒ�_�C�A���O��\������
+		//設定ダイアログを表示する
 		DialogBox((HINSTANCE)hModule,
 			MAKEINTRESOURCE(IDD_MAIN),
 			NULL,(DLGPROC)DlgProc);
@@ -47,7 +47,7 @@ BOOL WINAPI DllMain(HANDLE hModule,
 
 
 //===============================================================
-//		���C���̃_�C�A���O�v���V�[�W��
+//		メインのダイアログプロシージャ
 //===============================================================
 LRESULT CALLBACK DlgProc(HWND hWnd,
 						 UINT msg,
@@ -59,7 +59,7 @@ LRESULT CALLBACK DlgProc(HWND hWnd,
 		switch(wParam){
 		case IDOK:
 	
-			//�����ɑ��M���郂�W���[��������
+			//ここに送信するモジュールを書く
 			SendMail(hWnd);
 
 			return 0;
@@ -77,35 +77,35 @@ LRESULT CALLBACK DlgProc(HWND hWnd,
 }
 
 //================================================================
-//		���[�����M���W���[��
-//		�ꉞ�A�N���X�𗝉����Ă��Ȃ��l�͑����̂�
-//		�ėp�I�ȁA�ė��p���₷��C���ꃉ�C�N�ȃ��W���[���ɂ���
-//		(���̕ӂ́A�N���X�ɂ����ق����y�ł��B)
+//		メール送信モジュール
+//		一応、クラスを理解していない人は多いので
+//		汎用的な、再利用しやすいC言語ライクなモジュールにした
+//		(この辺は、クラスにしたほうが楽です。)
 //
-//		������Ƃ�����O���������Ă��Ȃ��̂Œ��ӂ��K�v
+//		きちんとした例外処理をしていないので注意が必要
 //================================================================
 BOOL SendMail(HWND hWnd)
 {
 	MessageBox(
 		NULL,
-		"DLL�̂Ȃ���SendMail�֐����Ă΂�܂����B\n"
-		"���[�����M���J�n���܂��B\n"
-		"���łɌ����Ă����܂����A���̃v���O������\n"
-		"WindowsNT�n��p�ɂȂ�܂��B(CreateRemoteThread�֐����g�p)",
-		"�m�F",
+		"DLLのなかのSendMail関数が呼ばれました。\n"
+		"メール送信を開始します。\n"
+		"ついでに言っておきますが、このプログラムは\n"
+		"WindowsNT系専用になります。(CreateRemoteThread関数を使用)",
+		"確認",
 		MB_OK);
 
 	WSADATA wsadata;
 	WSAStartup(MAKEWORD(1,1),&wsadata);
 
-	//�\�P�b�g�쐬
+	//ソケット作成
 	SOCKET sock;
 	sock = socket(AF_INET,SOCK_STREAM,0);
 	if(sock == INVALID_SOCKET){
 		return FALSE;
 	}
 
-	//�w�肵��SMTP�T�[�o�[�ɐڑ�����
+	//指定したSMTPサーバーに接続する
 	TCHAR szSmtpServer[MAX_PATH];
 	GetDlgItemText(hWnd,IDC_SMTPSERVER,szSmtpServer,sizeof(szSmtpServer));
 
@@ -122,21 +122,21 @@ BOOL SendMail(HWND hWnd)
 		return FALSE;
 	}
 
-	//���ۂ�SMTP�Ƃ̂����
-	char buffer[1024];		//��M�p�̃o�b�t�@
+	//実際のSMTPとのやり取り
+	char buffer[1024];		//受信用のバッファ
 
-	//�ŏ��̉�����SMTP�������Ă���
-	//���̕ӂ̃G���[�����������h�N�T�C����L�����Z��
+	//最初の応答がSMTPからやってくる
+	//この辺のエラー処理もメンドクサイからキャンセル
 	recv(sock,buffer,sizeof(buffer),0);
 	MSGBOX(buffer);
 
-	//HELO �R�}���h
+	//HELO コマンド
 	vsend(sock,"HELO localhost\r\n");
 	recv(sock,buffer,sizeof(buffer),0);
 	MSGBOX(buffer);
 
-	//MAIL FROM �R�}���h - ���낢��ς��Ă����v
-	//���M�����[���A�h���X����͂��Ă��������B
+	//MAIL FROM コマンド - いろいろ変えても大丈夫
+	//送信元メールアドレスを入力してください。
 	TCHAR szMailFrom[256];
 	GetDlgItemText(hWnd,IDC_MAILFROM,szMailFrom,sizeof(szMailFrom));
 
@@ -144,8 +144,8 @@ BOOL SendMail(HWND hWnd)
 	recv(sock,buffer,sizeof(buffer),0);
 	MSGBOX(buffer);
 
-	//RCPT TO �R�}���h - �������ς����Ⴄ
-	//���M�惁�[���A�h���X����͂��Ă��������B
+	//RCPT TO コマンド - ここも変えちゃう
+	//送信先メールアドレスを入力してください。
 	TCHAR szRcptTo[256];
 	GetDlgItemText(hWnd,IDC_RCPTTO,szRcptTo,sizeof(szRcptTo));
 
@@ -161,16 +161,16 @@ BOOL SendMail(HWND hWnd)
 	//DATA END
 	vsend(sock,"\r\n.\r\n");
 
-	//QUIT �R�}���h
+	//QUIT コマンド
 	vsend(sock,"QUIT\r\n");
 	recv(sock,buffer,sizeof(buffer),0);
 	MSGBOX(buffer);
 
-	//���M������\������
-	MSGBOX("���[�����M�������܂����B\n"
-		"���[����������Ɠ͂��Ă��邩�m�F���Ă��������B");
+	//送信完了を表示する
+	MSGBOX("メール送信完了しました。\n"
+		"メールがきちんと届いているか確認してください。");
 
-	//�ڑ������
+	//接続を閉じる
 	closesocket(sock);
 	WSACleanup();
 
@@ -179,16 +179,16 @@ BOOL SendMail(HWND hWnd)
 
 
 //=======================================================
-//		�ό�����send�֐�
-//		�߂�l�́Asend�֐��̖߂�l
-//		1024�����܂őΉ��A�����񂵂����M�ł��Ȃ��B
-//		�o�C�i���͖����B
+//		可変個引数のsend関数
+//		戻り値は、send関数の戻り値
+//		1024文字まで対応、文字列しか送信できない。
+//		バイナリは無理。
 //=======================================================
 int vsend(SOCKET sock,char *format,...)
 {
 	int result;
 	char send_buf[1024]="";
-	va_list args;	//�ό����W
+	va_list args;	//可変個引数集
 	
 	va_start(args,format);
 	wvsprintf(send_buf,format,args);

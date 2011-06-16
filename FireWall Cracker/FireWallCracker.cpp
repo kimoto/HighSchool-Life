@@ -1,6 +1,6 @@
 //==========================================================
 //		FireWall Cracker
-//		�����̃t�@�C�A�E�H�[���ђʃT���v���ł��B
+//		ただのファイアウォール貫通サンプルです。
 //
 //		2004/08/19 by kimoto
 //==========================================================
@@ -8,7 +8,7 @@
 #include "inject.h"
 
 //==========================================================
-//	�}�N���̐錾
+//	マクロの宣言
 //==========================================================
 #define WINDOW_NAME "FireWall Cracker"
 #define CLASS_NAME	"FireWall Cracker"
@@ -16,12 +16,12 @@
 #define DLL_FILE_NAME "IEHacking.dll"
 #define TARGET_PROCESS "IEXPLORE.EXE"
 //==========================================================
-//	�֐��̃v���g�^�C�v�̐錾
+//	関数のプロトタイプの宣言
 //==========================================================
 LRESULT CALLBACK WndProc(HWND,UINT,WPARAM,LPARAM);
 
 //==========================================================
-//	���C���̊֐�
+//	メインの関数
 //==========================================================
 BOOL WINAPI WinMain(HINSTANCE hInstance,
 					HINSTANCE hPrevInstance,
@@ -30,11 +30,11 @@ BOOL WINAPI WinMain(HINSTANCE hInstance,
 {
 	TCHAR szDLLPath[MAX_PATH];
 
-	//����������DLL�̃t���p�X���擾
+	//注入したいDLLのフルパスを取得
 	GetModuleFileName( NULL, szDLLPath, sizeof( szDLLPath ) );
 	lstrcpy( ( strrchr( szDLLPath, '\\' ) + 1 ), DLL_FILE_NAME );
 	
-	//�Ƃ肠�����A�{����DLL�����݂��邩���ׂ�
+	//とりあえず、本当にDLLが存在するか調べる
 	HMODULE hDLL;
 	hDLL = LoadLibraryEx(
 		szDLLPath,
@@ -44,8 +44,8 @@ BOOL WINAPI WinMain(HINSTANCE hInstance,
 
 		MessageBox(
 			NULL,
-			"DLL�������f�B���N�g���Ɍ�����܂���B",
-			"�m�F",
+			"DLLが同じディレクトリに見つかりません。",
+			"確認",
 			MB_ICONEXCLAMATION);
 		
 		return -1;
@@ -55,11 +55,11 @@ BOOL WINAPI WinMain(HINSTANCE hInstance,
 
 		MessageBox(
 			NULL,
-			"DLL�̒����Ɏ��s���܂����B\n"
-			"InternetExplorer���N�����Ă��邩�m�F���Ă��������B\n"
-			"�܂��ACreateRemoteThread�֐����g�p���Ă���̂�\n"
-			"���̃v���O�����́AWindowsNT�n��p�ł��B",
-			"�m�F",
+			"DLLの注入に失敗しました。\n"
+			"InternetExplorerが起動しているか確認してください。\n"
+			"また、CreateRemoteThread関数を使用しているので\n"
+			"このプログラムは、WindowsNT系専用です。",
+			"確認",
 			MB_ICONEXCLAMATION);
 
 	}

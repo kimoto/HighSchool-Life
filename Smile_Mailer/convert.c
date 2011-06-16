@@ -1,6 +1,6 @@
 /*
- *	•¶šƒR[ƒh•ÏŠ·‚ÉŠÖ˜A‚·‚éŠÖ”
- *	Shift-Jis‚©‚çJisƒR[ƒh‚Ö‚Ì•ÏŠ·‚É‚µ‚©‘Î‰‚µ‚Ä‚¢‚È‚¢iƒ[ƒ‹‘—M‚Å‚Í\•ªj
+ *	æ–‡å­—ã‚³ãƒ¼ãƒ‰å¤‰æ›ã«é–¢é€£ã™ã‚‹é–¢æ•°
+ *	Shift-Jisã‹ã‚‰Jisã‚³ãƒ¼ãƒ‰ã¸ã®å¤‰æ›ã«ã—ã‹å¯¾å¿œã—ã¦ã„ãªã„ï¼ˆãƒ¡ãƒ¼ãƒ«é€ä¿¡ã§ã¯ååˆ†ï¼‰
  *
  *	2004/07/21 : by kimoto
  */
@@ -11,7 +11,7 @@
 static int convert_SJisToJis(const char *src,char *dest);
 
 /*
- *	SJis‚©‚çJIS‚É•ÏŠ·‚·‚éA–ß‚è’l‚ÍA•ÏŠ·Œã‚ÌƒTƒCƒY
+ *	SJisã‹ã‚‰JISã«å¤‰æ›ã™ã‚‹ã€æˆ»ã‚Šå€¤ã¯ã€å¤‰æ›å¾Œã®ã‚µã‚¤ã‚º
  */
 extern size_t SJisToJis(const char *src,char *dest)
 {
@@ -22,24 +22,24 @@ extern size_t SJisToJis(const char *src,char *dest)
 }
 
 /*
- *	Shift-JIS‚©‚çJIS‚É•ÏŠ·‚·‚é
- *	¬Œ÷‚µ‚½‚ç–ß‚è’l‚Í0
- *	––”ö‚É'\0'‚ğ‘ã“ü‚·‚é
+ *	Shift-JISã‹ã‚‰JISã«å¤‰æ›ã™ã‚‹
+ *	æˆåŠŸã—ãŸã‚‰æˆ»ã‚Šå€¤ã¯0
+ *	æœ«å°¾ã«'\0'ã‚’ä»£å…¥ã™ã‚‹
  */
 static int convert_SJisToJis(const char *src,char *dest)
 {
 	int shift_flag = FALSE;
 
-	/*‚Ü‚¸A•’Ê‚ÌƒAƒ‹ƒtƒ@ƒxƒbƒg‚Ì‚ÍA•’Ê‚Éo—Í*/
+	/*ã¾ãšã€æ™®é€šã®ã‚¢ãƒ«ãƒ•ã‚¡ãƒ™ãƒƒãƒˆã®æ™‚ã¯ã€æ™®é€šã«å‡ºåŠ›*/
 	while(*src != '\0'){
-		/*•’Ê‚ÌASCII‚Ì‚Í•’Ê‚Éo—Í*/
+		/*æ™®é€šã®ASCIIã®æ™‚ã¯æ™®é€šã«å‡ºåŠ›*/
 		if(_ismbblead(*src) == 0){
 			*dest++ = *src++;
 			continue;
 		}
-		/*SJIS‚ğŒ©‚Â‚¯‚½‚çŠJnƒR[ƒh‚ğo—Í*/
+		/*SJISã‚’è¦‹ã¤ã‘ãŸã‚‰é–‹å§‹ã‚³ãƒ¼ãƒ‰ã‚’å‡ºåŠ›*/
 		if(_ismbblead(*src) != 0){
-			/*‚P‚Â‘O‚Ì•¶š‚ªASJIS‚¶‚á‚È‚©‚Á‚½‚ç*/
+			/*ï¼‘ã¤å‰ã®æ–‡å­—ãŒã€SJISã˜ã‚ƒãªã‹ã£ãŸã‚‰*/
 			if(shift_flag == FALSE){
 				*dest++ = 0x1b;
 				*dest++ = 0x24;
@@ -47,9 +47,9 @@ static int convert_SJisToJis(const char *src,char *dest)
 			}
 			*dest++ = HIBYTE(_mbcjmstojis(MAKEWORD(*(src+1),*src)));
 			*dest++ = LOBYTE(_mbcjmstojis(MAKEWORD(*(src+1),*src)));
-			/*Ÿ‚Ì•¶š‚ª‚Ü‚¾ASJIS‚¾‚Á‚½‚ç‚Ü‚¾I—¹ƒR[ƒh‚ğ‚Â‚¯‚È‚¢B*/
-			/*‹t‚ÉŒ¾‚¦‚ÎAŸ‚Ì•¶š‚ªJIS‚Å‚Í‚È‚©‚Á‚½‚çI—¹ƒR[ƒh‚ğ‚Â‚¯‚é*/
-			src+=2;	/*Ÿ‚Ì•¶š‚Ö*/
+			/*æ¬¡ã®æ–‡å­—ãŒã¾ã ã€SJISã ã£ãŸã‚‰ã¾ã çµ‚äº†ã‚³ãƒ¼ãƒ‰ã‚’ã¤ã‘ãªã„ã€‚*/
+			/*é€†ã«è¨€ãˆã°ã€æ¬¡ã®æ–‡å­—ãŒJISã§ã¯ãªã‹ã£ãŸã‚‰çµ‚äº†ã‚³ãƒ¼ãƒ‰ã‚’ã¤ã‘ã‚‹*/
+			src+=2;	/*æ¬¡ã®æ–‡å­—ã¸*/
 			shift_flag = TRUE;
 			if(!(_ismbblead(*src) != 0)){
 				*dest++ = 0x1b;
@@ -60,7 +60,7 @@ static int convert_SJisToJis(const char *src,char *dest)
 			}
 		}
 	}
-	/*––”ö‚ÉNULL•¶š‚ğ•t‚¯‚é*/
+	/*æœ«å°¾ã«NULLæ–‡å­—ã‚’ä»˜ã‘ã‚‹*/
 	*dest = '\0';
 	return 0;
 }

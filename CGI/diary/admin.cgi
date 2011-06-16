@@ -23,17 +23,17 @@ sub Main()
 {
 	my $html;
 
-	# CGI¤ËÁ÷¿®¤µ¤ì¤¿¥Ç¡¼¥¿¤ò¼èÆÀ¤¹¤ë
+	# CGIã«é€ä¿¡ã•ã‚ŒãŸãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã™ã‚‹
 	my %in = get_param();
 
-	# ¥»¥Ã¥·¥ç¥ó¤ÎCheck
+	# ã‚»ãƒƒã‚·ãƒ§ãƒ³ã®Check
 	if($in{'mode'} eq 'login'){
 
 		if(check_accept($in{'user'},$in{'password'}) != 0){
-			# Ç§¾Ú¼ºÇÔ
-			error("¥Ñ¥¹¥ï¡¼¥É¤Ş¤¿¤Ï¡¢¥æ¡¼¥¶¡¼Ì¾¤¬°ã¤¤¤Ş¤¹¡£");
+			# èªè¨¼å¤±æ•—
+			error("ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã¾ãŸã¯ã€ãƒ¦ãƒ¼ã‚¶ãƒ¼åãŒé•ã„ã¾ã™ã€‚");
 		}else{
-			# Ç§¾ÚÀ®¸ù
+			# èªè¨¼æˆåŠŸ
 			$html = read_file("$template_dir/header.html");
 			$html =~ s/=TITLE=/Admin Mode/g;
 			$html =~ s/=CHARSET=/euc-jp/g;
@@ -42,7 +42,7 @@ sub Main()
 		}
 	}elsif($in{'mode'} eq 'write'){
 
-		# ½ñ¤­¹ş¤ß¥â¡¼¥É
+		# æ›¸ãè¾¼ã¿ãƒ¢ãƒ¼ãƒ‰
 		open(my $out,">> $diary_file") or die("open error:$diary_file");
 		my $time = localtime(time);
 
@@ -52,7 +52,7 @@ sub Main()
 		print $out "$time,$in{'title'},$in{'message'}\n";
 		close($out);
 
-		error("½ñ¤­¹ş¤ßÀ®¸ù¤·¤Ş¤·¤¿¡£");
+		error("æ›¸ãè¾¼ã¿æˆåŠŸã—ã¾ã—ãŸã€‚");
 
 	}elsif($in{'mode'} eq 'help'){
 		
@@ -62,10 +62,10 @@ sub Main()
 		$html =~ s/=CHARSET=/euc-jp/g;
 
 		$html .= read_file("$template_dir/help.html");
-		$html =~ s/=HELP=/½àÈ÷Ãæ¤Ç¤¹¡£¤·¤Ğ¤é¤¯¤ªÂÔ¤Á²¼¤µ¤¤¡£/g;
+		$html =~ s/=HELP=/æº–å‚™ä¸­ã§ã™ã€‚ã—ã°ã‚‰ããŠå¾…ã¡ä¸‹ã•ã„ã€‚/g;
 
 	}else{
-		# ¤¿¤À¡¢É½¼¨¤¹¤ë¤À¤±
+		# ãŸã ã€è¡¨ç¤ºã™ã‚‹ã ã‘
 		$html .= read_file("$template_dir/header.html");
 		$html =~ s/=TITLE=/Login/g;
 		$html =~ s/=CHARSET=/euc-jp/g;
@@ -74,17 +74,17 @@ sub Main()
 		$html =~ s/=CGIPATH=/$ENV{SCRIPT_NAME}/g;
 	}
 
-	# ¥á¥Ë¥å¡¼¤ÎºîÀ®
+	# ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®ä½œæˆ
 	$html .= read_file("$template_dir/menu.html");
 	$html =~ s/=CGIPATH=/$ENV{SCRIPT_NAME}/g;
 	$html =~ s/=DIARYPATH=/.\//g;
 
-	# Ãøºî¸¢¾ğÊó¤ÎºîÀ®
+	# è‘—ä½œæ¨©æƒ…å ±ã®ä½œæˆ
 	$html .= read_file("$template_dir/copyright.html");
 
 	$html .= "</body>\n</html>\n";
 
-	# ÆüËÜ¸ì¤ËÊÑ´¹
+	# æ—¥æœ¬èªã«å¤‰æ›
 	jcode::convert(\$html,'euc');
 
 	print "Content-Type: text/html;\n\n";
@@ -137,7 +137,7 @@ sub get_param()
 	return %in;
 }
 
-# À®¸ù¤·¤¿¤é0¤òÊÖ¤¹¡¢¼ºÇÔ¤Ï1
+# æˆåŠŸã—ãŸã‚‰0ã‚’è¿”ã™ã€å¤±æ•—ã¯1
 sub check_accept($$)
 {
 	my $user = shift;

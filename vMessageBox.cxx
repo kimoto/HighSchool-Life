@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-// win´Ä¶­¤¸¤ã¤Ê¤¤¤ó¤ÇÅ¬Åö¤Ë
+// winç’°å¢ƒã˜ã‚ƒãªã„ã‚“ã§é©å½“ã«
 typedef int* HWND;
 typedef char* LPSTR;
 typedef unsigned int UINT;
@@ -12,8 +12,8 @@ typedef unsigned int UINT;
 
 #define MessageBox(a,b,c,d) puts(b);
 
-// ²ÄÊÑ¸Ä°ú¿ô¥á¥Ã¥»¡¼¥¸¥Ü¥Ã¥¯¥¹
-// Ìá¤êÃÍ¤Ï¡¢¥á¥Ã¥»¡¼¥¸¥Ü¥Ã¥¯¥¹¤Î¤ò¤½¤Î¤Ş¤ŞÊÖ¤¹
+// å¯å¤‰å€‹å¼•æ•°ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒœãƒƒã‚¯ã‚¹
+// æˆ»ã‚Šå€¤ã¯ã€ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒœãƒƒã‚¯ã‚¹ã®ã‚’ãã®ã¾ã¾è¿”ã™
 int vMessageBox(
 	HWND hWnd,
 	LPSTR lpCaption,
@@ -54,8 +54,8 @@ int vMessageBox(
 
 int main()
 {
-	// ´ğËÜÅª¤Ê¸Æ¤Ó½Ğ¤·Êı
-	// °ú¿ô¤Î½çÈÖ¤¬ÈùÌ¯¤Ë°ã¤¦¤Î¤ÇÃí°Õ¤¬É¬Í×
+	// åŸºæœ¬çš„ãªå‘¼ã³å‡ºã—æ–¹
+	// å¼•æ•°ã®é †ç•ªãŒå¾®å¦™ã«é•ã†ã®ã§æ³¨æ„ãŒå¿…è¦
 	int nResult = vMessageBox(
 			NULL,
 			"TestTitle",

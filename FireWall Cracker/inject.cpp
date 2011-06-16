@@ -1,12 +1,12 @@
 /************************************************************************************
-						DLL‚ÌƒCƒ“ƒWƒFƒNƒVƒ‡ƒ“‚ðŠÈ’P‚És‚¤‚½‚ß‚Ìƒ‰ƒCƒuƒ‰ƒŠ
+						DLLã®ã‚¤ãƒ³ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ã‚’ç°¡å˜ã«è¡Œã†ãŸã‚ã®ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
 						
-						2004/08/08	C++Žd—l‚É‡‚í‚¹‚½B
-									ƒoƒO”­Œ©A‰ðÁB
-									Windows—p‚É‚¢‚ë‚¢‚ë‚Æƒf[ƒ^Œ^‚ð•ÏX
+						2004/08/08	C++ä»•æ§˜ã«åˆã‚ã›ãŸã€‚
+									ãƒã‚°ç™ºè¦‹ã€è§£æ¶ˆã€‚
+									Windowsç”¨ã«ã„ã‚ã„ã‚ã¨ãƒ‡ãƒ¼ã‚¿åž‹ã‚’å¤‰æ›´
 
-						2004/07/24	ƒwƒbƒ_ƒtƒ@ƒCƒ‹‚É‚«‚¿‚ñ‚Æ
-									ŠÖ”‚ªéŒ¾‚Å‚«‚Ä‚È‚©‚Á‚½iŠ¾j
+						2004/07/24	ãƒ˜ãƒƒãƒ€ãƒ•ã‚¡ã‚¤ãƒ«ã«ãã¡ã‚“ã¨
+									é–¢æ•°ãŒå®£è¨€ã§ãã¦ãªã‹ã£ãŸï¼ˆæ±—ï¼‰
 						2004/07/22 by kimoto
 *************************************************************************************/
 #include <windows.h>
@@ -26,7 +26,7 @@ static PWSTR WriteTargetMemory(HANDLE hProcess,TCHAR *data,UINT data_len);
 static PTHREAD_START_ROUTINE GetLoadLibraryAddress(void);
 
 /**********************************************************************************
-						Žg—p—á
+						ä½¿ç”¨ä¾‹
 BOOL WINAPI WinMain(HINSTANCE hInstance,
 					HINSTANCE hPrevInstance,
 					LPSTR lpCmdLine,
@@ -37,7 +37,7 @@ BOOL WINAPI WinMain(HINSTANCE hInstance,
 	
 	_tcscpy(_tcsrchr(szLibFilePath,'\\') + 1,"Chaos.dll");
 
-	//DLL‚ðƒvƒƒZƒX‚É’“ü‚·‚é
+	//DLLã‚’ãƒ—ãƒ­ã‚»ã‚¹ã«æ³¨å…¥ã™ã‚‹
 	if(InjectToProcess(szLibFilePath,"explorer.exe") == FALSE){
 		DebugPrint("InjectToProcess error");
 		return FALSE;
@@ -49,8 +49,8 @@ BOOL WINAPI WinMain(HINSTANCE hInstance,
 **************************************************************************************/
 
 /*
- *	Žw’è‚µ‚½DLL‚ðŽw’è‚µ‚½ƒvƒƒZƒX‚É’“ü‚·‚é
- *	DLL‚ÍA•K‚¸â‘ÎƒpƒX‚ÅŽw’è‚·‚é‚±‚Æ
+ *	æŒ‡å®šã—ãŸDLLã‚’æŒ‡å®šã—ãŸãƒ—ãƒ­ã‚»ã‚¹ã«æ³¨å…¥ã™ã‚‹
+ *	DLLã¯ã€å¿…ãšçµ¶å¯¾ãƒ‘ã‚¹ã§æŒ‡å®šã™ã‚‹ã“ã¨
  */
 extern BOOL InjectToProcess(TCHAR *cDllName,
 							TCHAR *cTargetProcess)
@@ -61,13 +61,13 @@ extern BOOL InjectToProcess(TCHAR *cDllName,
 	PTHREAD_START_ROUTINE pfnThreadRtn;
 	HANDLE hThread;
 
-	/*target‚Ì–¼‘O‚©‚çID‚ðˆø‚«o‚·*/
+	/*targetã®åå‰ã‹ã‚‰IDã‚’å¼•ãå‡ºã™*/
 	dwProcessID = GetProcessIDNumber(cTargetProcess);
 	if(dwProcessID < 0){
 		DebugPrint("dwProcessID error");
 		return FALSE;
 	}
-	/*target‚ÌƒvƒƒZƒX‚ðŠJ‚­*/
+	/*targetã®ãƒ—ãƒ­ã‚»ã‚¹ã‚’é–‹ã*/
 	hProcess = OpenProcess(PROCESS_QUERY_INFORMATION |
 		PROCESS_CREATE_THREAD | PROCESS_VM_OPERATION |
 		PROCESS_VM_WRITE,FALSE,dwProcessID);
@@ -75,31 +75,31 @@ extern BOOL InjectToProcess(TCHAR *cDllName,
 		DebugPrint("OpenProcess error");
 		return FALSE;
 	}
-	/*DLL‚Ì–¼‘O‚ðƒƒ‚ƒŠ‚É‘‚«ž‚Þ*/
+	/*DLLã®åå‰ã‚’ãƒ¡ãƒ¢ãƒªã«æ›¸ãè¾¼ã‚€*/
 	RemoteProcessMemory = WriteTargetMemory(hProcess,cDllName,strlen(cDllName));
 	if(RemoteProcessMemory == NULL){
 		DebugPrint("WriteTargetMemory error");
 		return FALSE;
 	}
-	/*LoadLibrary‚ÌƒAƒhƒŒƒX‚ðŽæ“¾*/
+	/*LoadLibraryã®ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’å–å¾—*/
 	pfnThreadRtn = GetLoadLibraryAddress();
 	if(pfnThreadRtn == NULL){
 		DebugPrint("pfnThreadRtn error");
 		return FALSE;
 	}
-	/*target‚ÌƒvƒƒZƒX‚Ì’†‚Ådll‚ðŽÀs‚·‚é*/
+	/*targetã®ãƒ—ãƒ­ã‚»ã‚¹ã®ä¸­ã§dllã‚’å®Ÿè¡Œã™ã‚‹*/
 	hThread = CreateRemoteThread(hProcess,NULL,0,pfnThreadRtn,
 		RemoteProcessMemory,0,NULL);
 	if(hThread == NULL){
 		DebugPrint("CrateRemoteThread error");
 		return FALSE;
 	}
-	/*Thread‚ªI‚í‚é‚Ü‚Å‘Ò‚¿‘±‚¯‚é*/
+	/*ThreadãŒçµ‚ã‚ã‚‹ã¾ã§å¾…ã¡ç¶šã‘ã‚‹*/
 	return TRUE;
 }
 
 /*
- *	ƒvƒƒZƒX–¼‚©‚çƒvƒƒZƒXID‚ð‹‚ß‚é
+ *	ãƒ—ãƒ­ã‚»ã‚¹åã‹ã‚‰ãƒ—ãƒ­ã‚»ã‚¹IDã‚’æ±‚ã‚ã‚‹
  */
 static DWORD GetProcessIDNumber(TCHAR *cProcessName)
 {
@@ -118,7 +118,7 @@ static DWORD GetProcessIDNumber(TCHAR *cProcessName)
 	Process32First(hSnap,&pe);
 
 	do{
-		/*Œ©‚Â‚©‚Á‚½ŽžA‚»‚ÌID”Ô†‚ð•Ô‚·*/
+		/*è¦‹ã¤ã‹ã£ãŸæ™‚ã€ãã®IDç•ªå·ã‚’è¿”ã™*/
 		if(lstrcmp(pe.szExeFile,cProcessName) == 0){
 			dwProcessID = pe.th32ProcessID;
 			CloseHandle(hSnap);
@@ -131,8 +131,8 @@ static DWORD GetProcessIDNumber(TCHAR *cProcessName)
 }
 
 /*
- *	Žw’è‚µ‚½ƒvƒƒZƒX‚Ìƒƒ‚ƒŠ‹óŠÔ‚É
- *	Žw’è‚µ‚½ƒf[ƒ^‚ð‘‚«ž‚ÞŠÖ”
+ *	æŒ‡å®šã—ãŸãƒ—ãƒ­ã‚»ã‚¹ã®ãƒ¡ãƒ¢ãƒªç©ºé–“ã«
+ *	æŒ‡å®šã—ãŸãƒ‡ãƒ¼ã‚¿ã‚’æ›¸ãè¾¼ã‚€é–¢æ•°
  */
 static PWSTR WriteTargetMemory(HANDLE hProcess,
 							   TCHAR *cData,
@@ -143,14 +143,14 @@ static PWSTR WriteTargetMemory(HANDLE hProcess,
 	if(hProcess == NULL){
 		return NULL;
 	}
-	/*target‚Ìƒƒ‚ƒŠ‹óŠÔ‚ÉV‚µ‚­ƒƒ‚ƒŠ‚ðì‚é*/
+	/*targetã®ãƒ¡ãƒ¢ãƒªç©ºé–“ã«æ–°ã—ããƒ¡ãƒ¢ãƒªã‚’ä½œã‚‹*/
 	RemoteProcessMemory = (PWSTR)VirtualAllocEx(hProcess,NULL,
 		uSize + 1,MEM_COMMIT,PAGE_READWRITE);
 	if(RemoteProcessMemory == NULL){
 		DebugPrint("WriteTargetMemory error");
 		return NULL;
 	}
-	/*‚»‚±‚É‘‚«ž‚Þ*/
+	/*ãã“ã«æ›¸ãè¾¼ã‚€*/
 	if(WriteProcessMemory(hProcess,RemoteProcessMemory,
 		cData,uSize,NULL) == 0){
 		DebugPrint("WriteProcessMemory error");
@@ -160,7 +160,7 @@ static PWSTR WriteTargetMemory(HANDLE hProcess,
 }
 
 /*
- *	"LoadLibrary"ŠÖ”‚Ö‚Ìƒ|ƒCƒ“ƒ^‚ðŽæ“¾‚·‚éŠÖ”
+ *	"LoadLibrary"é–¢æ•°ã¸ã®ãƒã‚¤ãƒ³ã‚¿ã‚’å–å¾—ã™ã‚‹é–¢æ•°
  */
 static PTHREAD_START_ROUTINE GetLoadLibraryAddress(void)
 {

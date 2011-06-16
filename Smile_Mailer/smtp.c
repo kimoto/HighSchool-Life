@@ -1,5 +1,5 @@
 /*
- *	ƒ[ƒ‹‘—M‚Ì‚½‚ß‚ÌŠÖ”ŒQ
+ *	ãƒ¡ãƒ¼ãƒ«é€ä¿¡ã®ãŸã‚ã®é–¢æ•°ç¾¤
  *	smtp.c
  *	2004/07/17
  *	2004/07/16 : program by kimoto
@@ -38,10 +38,10 @@ static int dump_recv(SOCKET sock);
 static void free_ex(void *buffer);
 
 /*
- *	w’è‚³‚ê‚½ƒ[ƒ‹ƒT[ƒo[‚ğg‚Á‚Ä
- *	ƒ[ƒ‹‚ğ‘—M‚·‚éŠÖ”
- *	¬Œ÷‚µ‚½‚ç0‚ğ•Ô‚·
- *	ƒGƒ‰[ƒR[ƒh‚ÌÚ×‚ÍAƒwƒbƒ_ƒtƒ@ƒCƒ‹QÆ
+ *	æŒ‡å®šã•ã‚ŒãŸãƒ¡ãƒ¼ãƒ«ã‚µãƒ¼ãƒãƒ¼ã‚’ä½¿ã£ã¦
+ *	ãƒ¡ãƒ¼ãƒ«ã‚’é€ä¿¡ã™ã‚‹é–¢æ•°
+ *	æˆåŠŸã—ãŸã‚‰0ã‚’è¿”ã™
+ *	ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã®è©³ç´°ã¯ã€ãƒ˜ãƒƒãƒ€ãƒ•ã‚¡ã‚¤ãƒ«å‚ç…§
  */
 extern int SendMail(char *smtp_server,MAILDATA *mdat,BOOL bAttach,char *boundary)
 {
@@ -61,7 +61,7 @@ extern int SendMail(char *smtp_server,MAILDATA *mdat,BOOL bAttach,char *boundary
 	}
 	lphost = gethostbyname(smtp_server);
 	if(lphost == NULL){
-		DebugPrint("‚»‚Ì‚æ‚¤‚ÈƒT[ƒo[‚ÍŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
+		DebugPrint("ãã®ã‚ˆã†ãªã‚µãƒ¼ãƒãƒ¼ã¯è¦‹ã¤ã‹ã‚Šã¾ã›ã‚“");
 		error_value = SENDMAIL_ERROR_SMTPSERVER;
 		goto error;
 	}
@@ -112,7 +112,7 @@ extern int SendMail(char *smtp_server,MAILDATA *mdat,BOOL bAttach,char *boundary
 	}
 	/*empty-line*/
 	vsend(sock,"\r\n");
-	/*“Y•tƒtƒ@ƒCƒ‹‚ª‚ ‚é‚Æ‚È‚¢‚Ìˆ—*/
+	/*æ·»ä»˜ãƒ•ã‚¡ã‚¤ãƒ«ãŒã‚ã‚‹æ™‚ã¨ãªã„æ™‚ã®å‡¦ç†*/
 	if(bAttach == TRUE){
 		vsend(sock,"\r\n");
 		vsend(sock,"--%s\r\n",boundary);
@@ -143,7 +143,7 @@ extern int SendMail(char *smtp_server,MAILDATA *mdat,BOOL bAttach,char *boundary
 	WSACleanup();
 	return 0;
 
-/*ƒGƒ‰[ˆ—*/
+/*ã‚¨ãƒ©ãƒ¼å‡¦ç†*/
 error:
 	if(sock != INVALID_SOCKET){
 		closesocket(sock);
@@ -153,7 +153,7 @@ error:
 }
 
 /*
- *	MAILDATA\‘¢‘Ì‚Ì‰Šú‰»
+ *	MAILDATAæ§‹é€ ä½“ã®åˆæœŸåŒ–
  */
 extern int InitMailData(MAILDATA *mdat)
 {
@@ -176,7 +176,7 @@ extern int InitMailData(MAILDATA *mdat)
 }
 
 /*
- *	ƒ[ƒ‹‚Ì‘—MÒ–¼(mdat->sender)‚ğ‘—M‚·‚éŠÖ”
+ *	ãƒ¡ãƒ¼ãƒ«ã®é€ä¿¡è€…å(mdat->sender)ã‚’é€ä¿¡ã™ã‚‹é–¢æ•°
  */
 static int SendMailSender(SOCKET sock,MAILDATA *mdat)
 {
@@ -188,19 +188,19 @@ static int SendMailSender(SOCKET sock,MAILDATA *mdat)
 	mime_sender = malloc(sender_len * 2 + 1024);
 //	memset(mime_sender,'\0',sender_len * 2 + 1024);
 
-	/*JISƒR[ƒh‚É‚·‚×‚«‚©’²‚×‚Ä‚©‚ç•ÏŠ·*/
+	/*JISã‚³ãƒ¼ãƒ‰ã«ã™ã¹ãã‹èª¿ã¹ã¦ã‹ã‚‰å¤‰æ›*/
 	if(Check_isprint(mdat->sender) != 0){
-		/*•¶šƒR[ƒh‚ğJIS‚É‚·‚é*/
+		/*æ–‡å­—ã‚³ãƒ¼ãƒ‰ã‚’JISã«ã™ã‚‹*/
 		SJisToJis(mdat->sender,jis_sender);
-		/*MIME“ñ•ÏŠ·*/
+		/*MIMEäºŒå¤‰æ›*/
 		encode_to_mime_base64(jis_sender,mime_sender);
 		vsend(sock,"From: %s <%s>\r\n",mime_sender,mdat->from);
 	}else{
-		/*•ÏŠ·‚µ‚È‚­‚Ä‚à‚æ‚©‚Á‚½‚ç‚»‚Ì‚Ü‚ñ‚Ü‘—M*/
+		/*å¤‰æ›ã—ãªãã¦ã‚‚ã‚ˆã‹ã£ãŸã‚‰ãã®ã¾ã‚“ã¾é€ä¿¡*/
 		vsend(sock,"From: %s <%s>\r\n",mdat->sender,mdat->from);
 	}
 	
-	/*‰ğ•úì‹Æ*/
+	/*è§£æ”¾ä½œæ¥­*/
 	if(jis_sender != NULL){
 		free_ex(jis_sender);
 	}
@@ -212,30 +212,30 @@ static int SendMailSender(SOCKET sock,MAILDATA *mdat)
 
 
 /*
- *	ƒ[ƒ‹‚Ì–{•¶‚ğî•ñ‚ğ•t‰Á‚µ‚Ä‘—M‚·‚éŠÖ”
+ *	ãƒ¡ãƒ¼ãƒ«ã®æœ¬æ–‡ã‚’æƒ…å ±ã‚’ä»˜åŠ ã—ã¦é€ä¿¡ã™ã‚‹é–¢æ•°
  */
 static int SendMailBody(SOCKET sock,MAILDATA *mdat)
 {
 	char *body = NULL;
 	int body_len;
 
-	/*“®“I‚Éƒƒ‚ƒŠ[‚ğŠ„‚è“–‚Ä‚é*/
+	/*å‹•çš„ã«ãƒ¡ãƒ¢ãƒªãƒ¼ã‚’å‰²ã‚Šå½“ã¦ã‚‹*/
 	body_len = strlen(mdat->body) * 2 + 1024;
 	body = (char *)malloc(body_len);
 	//memset(body,'\0',body_len);
 
-	/*JISƒR[ƒh‚É‚·‚×‚«‚©’²‚×‚Ä‚©‚ç•ÏŠ·*/
+	/*JISã‚³ãƒ¼ãƒ‰ã«ã™ã¹ãã‹èª¿ã¹ã¦ã‹ã‚‰å¤‰æ›*/
 	if(Check_isprint(mdat->body) != 0){
-		/*•¶šƒR[ƒh‚ğJIS‚É‚·‚é*/
+		/*æ–‡å­—ã‚³ãƒ¼ãƒ‰ã‚’JISã«ã™ã‚‹*/
 		SJisToJis(mdat->body,body);
-		/*‰ÁH‚µ‚½–{•¶‚ğ‘—M‚·‚é*/
+		/*åŠ å·¥ã—ãŸæœ¬æ–‡ã‚’é€ä¿¡ã™ã‚‹*/
 		vsend(sock,"%s\r\n",body);
 	}else{
-		/*‚»‚Ì‚Ü‚Ü*/
+		/*ãã®ã¾ã¾*/
 		vsend(sock,"%s\r\n",mdat->body);
 	}
 
-	/*‰ğ•úì‹Æ*/
+	/*è§£æ”¾ä½œæ¥­*/
 	if(body != NULL){
 		free_ex(body);
 	}
@@ -243,7 +243,7 @@ static int SendMailBody(SOCKET sock,MAILDATA *mdat)
 }
 
 /*
- *	ƒ[ƒ‹‚ÌŒ–¼‚ğ‚¢‚ë‚¢‚ë‰ÁH‚µ‚Ä‘—M‚·‚éŠÖ”
+ *	ãƒ¡ãƒ¼ãƒ«ã®ä»¶åã‚’ã„ã‚ã„ã‚åŠ å·¥ã—ã¦é€ä¿¡ã™ã‚‹é–¢æ•°
  */
 static int SendMailSubject(SOCKET sock,MAILDATA *mdat)
 {
@@ -251,7 +251,7 @@ static int SendMailSubject(SOCKET sock,MAILDATA *mdat)
 	char *subject = NULL;
 	int subject_len;
 
-	/*“®“I‚Éƒƒ‚ƒŠ[‚ğŠ„‚è“–‚Ä‚é*/
+	/*å‹•çš„ã«ãƒ¡ãƒ¢ãƒªãƒ¼ã‚’å‰²ã‚Šå½“ã¦ã‚‹*/
 	subject_len = strlen(mdat->subject) * 2 + 1024;
 	temp = malloc(subject_len);
 	//memset(temp,'\0',subject_len);
@@ -259,20 +259,20 @@ static int SendMailSubject(SOCKET sock,MAILDATA *mdat)
 	subject = malloc(subject_len);
 	//memset(subject,'\0',subject_len);
 
-	/*MIME‚ÌŒ`®‚É‚·‚×‚«‚©’²‚×‚Ä‚©‚ç•ÏŠ·*/
+	/*MIMEã®å½¢å¼ã«ã™ã¹ãã‹èª¿ã¹ã¦ã‹ã‚‰å¤‰æ›*/
 	if(Check_isprint(mdat->subject) != 0){
-		/*JISƒR[ƒh‚É•ÏŠ·*/
+		/*JISã‚³ãƒ¼ãƒ‰ã«å¤‰æ›*/
 		SJisToJis(mdat->subject,temp);
-		/*MIME‚ÌŒ`®‚É*/
+		/*MIMEã®å½¢å¼ã«*/
 		encode_to_mime_base64(temp,subject);		
-		/*Œ–¼‚ğ‘—M*/
+		/*ä»¶åã‚’é€ä¿¡*/
 		vsend(sock,"Subject: %s\r\n",subject);
 	}else{
-		/*‚»‚Ì‚Ü‚Ü*/
+		/*ãã®ã¾ã¾*/
 		vsend(sock,"Subject: %s\r\n",mdat->subject);
 	}
 
-	/*‰ğ•úì‹Æ*/
+	/*è§£æ”¾ä½œæ¥­*/
 	if(temp != NULL){
 		free_ex(temp);
 	}
@@ -283,8 +283,8 @@ static int SendMailSubject(SOCKET sock,MAILDATA *mdat)
 }
 
 /*
- *	w’è‚³‚ê‚½ƒoƒbƒtƒ@‚ªˆóš‰Â”\•¶š‚Åo—ˆ‚Ä‚¢‚é‚©’²‚×‚é
- *	ˆóš‰Â”\‚È‚ç0‚ğ•Ô‚·
+ *	æŒ‡å®šã•ã‚ŒãŸãƒãƒƒãƒ•ã‚¡ãŒå°å­—å¯èƒ½æ–‡å­—ã§å‡ºæ¥ã¦ã„ã‚‹ã‹èª¿ã¹ã‚‹
+ *	å°å­—å¯èƒ½ãªã‚‰0ã‚’è¿”ã™
  */
 static int Check_isprint(char *buffer)
 {
@@ -292,7 +292,7 @@ static int Check_isprint(char *buffer)
 	int result = 0;
 
 	while(i-- > 0){
-		/*‚à‚µAˆóš•s”\‚¾‚Á‚½‚ç*/
+		/*ã‚‚ã—ã€å°å­—ä¸èƒ½ã ã£ãŸã‚‰*/
 		if(isprint(buffer[i]) == 0){
 			return -1;
 		}
@@ -302,7 +302,7 @@ static int Check_isprint(char *buffer)
 
 
 /*
- *	“Y•tƒtƒ@ƒCƒ‹—p‚ÌContent-***‚ğ‘—M‚·‚é
+ *	æ·»ä»˜ãƒ•ã‚¡ã‚¤ãƒ«ç”¨ã®Content-***ã‚’é€ä¿¡ã™ã‚‹
  */
 static int SendMailAttachContent(SOCKET sock,char *boundary,MAILDATA *mdat)
 {
@@ -310,14 +310,14 @@ static int SendMailAttachContent(SOCKET sock,char *boundary,MAILDATA *mdat)
 	char buffer[256]="";
 
 	vsend(sock,"--%s\r\n",boundary);
-	/*•ÏŠ·‚µ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢*/
+	/*å¤‰æ›ã—ãªã‘ã‚Œã°ãªã‚‰ãªã„æ™‚*/
 	if(Check_isprint(mdat->attach_name) != 0){
-		/*JISƒR[ƒh‚É•ÏŠ·‚·‚é*/
+		/*JISã‚³ãƒ¼ãƒ‰ã«å¤‰æ›ã™ã‚‹*/
 		SJisToJis(mdat->attach_name,jiscode);
-		/*MIMEŒ`®‚É•ÏŠ·‚·‚é*/
+		/*MIMEå½¢å¼ã«å¤‰æ›ã™ã‚‹*/
 		encode_to_mime_base64(jiscode,buffer);
 	}else{
-		/*‚»‚Ì‚Ü‚Ü*/
+		/*ãã®ã¾ã¾*/
 		strcpy(buffer,mdat->attach_name);
 	}
 
@@ -330,7 +330,7 @@ static int SendMailAttachContent(SOCKET sock,char *boundary,MAILDATA *mdat)
 }
 
 /*
- *	ƒ[ƒ‹‚Ì“Y•tƒtƒ@ƒCƒ‹‚ğ‚¢‚ë‚¢‚ë‚Æ‰ÁH‚µ‚Ä‘—M‚·‚éŠÖ”
+ *	ãƒ¡ãƒ¼ãƒ«ã®æ·»ä»˜ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ã„ã‚ã„ã‚ã¨åŠ å·¥ã—ã¦é€ä¿¡ã™ã‚‹é–¢æ•°
  */
 static int SendMailAttach(SOCKET sock,MAILDATA *mdat)
 {
@@ -342,15 +342,15 @@ static int SendMailAttach(SOCKET sock,MAILDATA *mdat)
 	attach_file = (char *)malloc(attach_size);
 	memset(attach_file,'\0',attach_size);
 
-	/*base64‚ÅƒGƒ“ƒR[ƒh‚·‚é*/
+	/*base64ã§ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ã™ã‚‹*/
 	base64_attach_size = encode_to_base64(mdat->attach,attach_file,mdat->attach_size);
 
-	/*‘—M‚·‚é - ƒoƒCƒiƒŠƒf[ƒ^‚ğ‘—‚é‚Ì‚ÅATd‚É*/
+	/*é€ä¿¡ã™ã‚‹ - ãƒã‚¤ãƒŠãƒªãƒ‡ãƒ¼ã‚¿ã‚’é€ã‚‹ã®ã§ã€æ…é‡ã«*/
 	send(sock,attach_file,base64_attach_size,0);
 	vsend(sock,"\r\n");
 	DebugPrint(attach_file);
 
-	/*‰ğ•ú‚·‚é*/
+	/*è§£æ”¾ã™ã‚‹*/
 	if(attach_file != NULL){
 		free_ex(attach_file);
 	}
@@ -359,8 +359,8 @@ static int SendMailAttach(SOCKET sock,MAILDATA *mdat)
 
 
 /*
- *	‰Â•ÏŒÂˆø”‚ÌsendŠÖ”
- *	sendŠÖ”‚Ì–ß‚è’l‚ğ‚»‚Ì‚Ü‚Ü•Ô‚·
+ *	å¯å¤‰å€‹å¼•æ•°ã®sendé–¢æ•°
+ *	sendé–¢æ•°ã®æˆ»ã‚Šå€¤ã‚’ãã®ã¾ã¾è¿”ã™
  */
 static int vsend(SOCKET sock,char *format,...)
 {
@@ -379,8 +379,8 @@ static int vsend(SOCKET sock,char *format,...)
 }
 
 /*
- *	óM‚µ‚½ƒf[ƒ^‚ğÌ‚Ä‚érecvŠÖ”
- *	recvŠÖ”‚Ì–ß‚è’l‚ğ‚»‚Ì‚Ü‚Ü•Ô‚·
+ *	å—ä¿¡ã—ãŸãƒ‡ãƒ¼ã‚¿ã‚’æ¨ã¦ã‚‹recvé–¢æ•°
+ *	recvé–¢æ•°ã®æˆ»ã‚Šå€¤ã‚’ãã®ã¾ã¾è¿”ã™
  */
 static int dump_recv(SOCKET sock)
 {
@@ -394,10 +394,10 @@ static int dump_recv(SOCKET sock)
 }
 
 /*
- *	freeŠÖ”‚ÌŠg’£”Å
- *	NULL‚ğ‘ã“ü‚·‚é‚±‚Æ‚É‚æ‚Á‚ÄŠÔˆá‚¦‚Ä
- *	‚·‚Å‚É‰ğ•ú‚µ‚½ƒƒ‚ƒŠ[‚ÉƒAƒNƒZƒX‚µ‚½‚É
- *	‚ÉƒGƒ‰[‚ªo‚é‚æ‚¤‚É‚·‚é
+ *	freeé–¢æ•°ã®æ‹¡å¼µç‰ˆ
+ *	NULLã‚’ä»£å…¥ã™ã‚‹ã“ã¨ã«ã‚ˆã£ã¦é–“é•ãˆã¦
+ *	ã™ã§ã«è§£æ”¾ã—ãŸãƒ¡ãƒ¢ãƒªãƒ¼ã«ã‚¢ã‚¯ã‚»ã‚¹ã—ãŸæ™‚ã«
+ *	ã«ã‚¨ãƒ©ãƒ¼ãŒå‡ºã‚‹ã‚ˆã†ã«ã™ã‚‹
  */
 static void free_ex(void *buffer)
 {

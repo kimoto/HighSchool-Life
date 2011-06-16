@@ -1,5 +1,5 @@
 /*
- *	“Y•tƒtƒ@ƒCƒ‹ŠÖ˜A‚ÌŠÖ”
+ *	æ·»ä»˜ãƒ•ã‚¡ã‚¤ãƒ«é–¢é€£ã®é–¢æ•°
  *	2004/07/17 : program by kimoto
  */
 #include <string.h>
@@ -22,7 +22,7 @@ static BOOL read_to_buffer(char *filepath,char *buffer,size_t buffer_size);
 
 
 /*
- *	“Y•tƒtƒ@ƒCƒ‹‚ğİ’è‚·‚é
+ *	æ·»ä»˜ãƒ•ã‚¡ã‚¤ãƒ«ã‚’è¨­å®šã™ã‚‹
  */
 BOOL GetAttachFilePath(HWND hDlg)
 {
@@ -33,7 +33,7 @@ BOOL GetAttachFilePath(HWND hDlg)
 	memset(&ofn,0,sizeof(ofn));
 	ofn.lStructSize = sizeof(ofn);
 	ofn.hwndOwner = hDlg;
-	ofn.lpstrFilter = "‚·‚×‚Ä‚Ìƒtƒ@ƒCƒ‹\0*.*\0\0";
+	ofn.lpstrFilter = "ã™ã¹ã¦ã®ãƒ•ã‚¡ã‚¤ãƒ«\0*.*\0\0";
 	ofn.lpstrFile = full_path;
 	ofn.nMaxFile = sizeof(full_path);
 	ofn.Flags = OFN_FILEMUSTEXIST;
@@ -47,9 +47,9 @@ BOOL GetAttachFilePath(HWND hDlg)
 }
 
 /*
- *	w’è‚µ‚½ƒtƒ@ƒCƒ‹‚ª‘¶İ‚·‚é‚©’²‚×‚éŠÖ”
- *	‘¶İ‚·‚ê‚ÎATRUE,
- *	‚È‚¯‚ê‚ÎAFALSE
+ *	æŒ‡å®šã—ãŸãƒ•ã‚¡ã‚¤ãƒ«ãŒå­˜åœ¨ã™ã‚‹ã‹èª¿ã¹ã‚‹é–¢æ•°
+ *	å­˜åœ¨ã™ã‚Œã°ã€TRUE,
+ *	ãªã‘ã‚Œã°ã€FALSE
  */
 extern BOOL CheckFileExist(char *filepath)
 {
@@ -67,16 +67,16 @@ extern BOOL CheckFileExist(char *filepath)
 
 
 /*
- *	“Y•tƒtƒ@ƒCƒ‹‚ğw’è‚µ‚½ƒoƒbƒtƒ@‚É“Ç‚İ‚Ş
+ *	æ·»ä»˜ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æŒ‡å®šã—ãŸãƒãƒƒãƒ•ã‚¡ã«èª­ã¿è¾¼ã‚€
  */
 extern BOOL ReadAttachFile(char *filepath,MAILDATA *mdat)
 {
 	split_file_name(filepath,mdat->attach_name);
 	
-	/*ƒtƒ@ƒCƒ‹‚ÌƒTƒCƒY‚ğæ“¾*/
+	/*ãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚µã‚¤ã‚ºã‚’å–å¾—*/
 	mdat->attach_size = get_file_size(filepath);
 
-	/*“Ç‚İ‚İ*/
+	/*èª­ã¿è¾¼ã¿*/
 	mdat->attach = (char *)GlobalAlloc(GMEM_FIXED,mdat->attach_size + 1);
 	read_to_buffer(filepath,mdat->attach,mdat->attach_size);
 
@@ -85,7 +85,7 @@ extern BOOL ReadAttachFile(char *filepath,MAILDATA *mdat)
 
 
 /*
- *	ƒtƒ@ƒCƒ‹‚Ìƒtƒ‹ƒpƒX–¼‚©‚çƒtƒ@ƒCƒ‹–¼‚ğ’Šo‚·‚é
+ *	ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ•ãƒ«ãƒ‘ã‚¹åã‹ã‚‰ãƒ•ã‚¡ã‚¤ãƒ«åã‚’æŠ½å‡ºã™ã‚‹
  */
 static int split_file_name(char *filepath,char *filename)
 {
@@ -103,7 +103,7 @@ static int split_file_name(char *filepath,char *filename)
 
 
 /*
- *	w’è‚³‚ê‚½ƒtƒ@ƒCƒ‹w’è‚µ‚½ƒTƒCƒY•ªAƒoƒbƒtƒ@‚É“Ç‚İ‚Ş
+ *	æŒ‡å®šã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«æŒ‡å®šã—ãŸã‚µã‚¤ã‚ºåˆ†ã€ãƒãƒƒãƒ•ã‚¡ã«èª­ã¿è¾¼ã‚€
  */
 static BOOL read_to_buffer(char *filepath,char *buffer,size_t buffer_size)
 {
@@ -113,7 +113,7 @@ static BOOL read_to_buffer(char *filepath,char *buffer,size_t buffer_size)
 	hFile = CreateFile(filepath,GENERIC_READ,FILE_SHARE_READ,
 		NULL,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,NULL);
 	if(hFile == INVALID_HANDLE_VALUE){
-		DebugPrint("ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ‚É¸”s‚µ‚Ü‚µ‚½B");
+		DebugPrint("ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
 		CloseHandle(hFile);
 		return FALSE;
 	}
@@ -124,7 +124,7 @@ static BOOL read_to_buffer(char *filepath,char *buffer,size_t buffer_size)
 }
 
 /*
- *	ƒtƒ@ƒCƒ‹ƒTƒCƒY‚ğæ“¾‚·‚éŠÖ”
+ *	ãƒ•ã‚¡ã‚¤ãƒ«ã‚µã‚¤ã‚ºã‚’å–å¾—ã™ã‚‹é–¢æ•°
  */
 static size_t get_file_size(char *filepath)
 {

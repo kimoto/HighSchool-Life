@@ -1,19 +1,19 @@
 /********************************************************************************************
 								Smile-Mailer ver1.0.0
-yŠT—vz
-Smile-Mailer‚ÍAƒvƒƒoƒCƒ_‚ÌSMTPƒT[ƒo[‚ğ—˜—p‚¹‚¸‚Éƒ[ƒ‹‚ğ‘—M‚·‚éƒc[ƒ‹‚Å‚·B
-Ÿ‚Ì‚æ‚¤‚È—˜“_‚ª‚ ‚è‚Ü‚·B
+ã€æ¦‚è¦ã€‘
+Smile-Mailerã¯ã€ãƒ—ãƒ­ãƒã‚¤ãƒ€ã®SMTPã‚µãƒ¼ãƒãƒ¼ã‚’åˆ©ç”¨ã›ãšã«ãƒ¡ãƒ¼ãƒ«ã‚’é€ä¿¡ã™ã‚‹ãƒ„ãƒ¼ãƒ«ã§ã™ã€‚
+æ¬¡ã®ã‚ˆã†ãªåˆ©ç‚¹ãŒã‚ã‚Šã¾ã™ã€‚
 
-‚PDƒvƒƒoƒCƒ_‚ÌSMTPƒT[ƒo[‚ª¬‚ñ‚Å‚¢‚é‚É‚‘¬‚Èƒ[ƒ‹‘—M‚ğŠú‘Ò‚Å‚«‚Ü‚·B
-‚QD‘Šè‚Ìƒ[ƒ‹ƒAƒhƒŒƒX‚¾‚¯‚ğ’m‚Á‚Ä‚¢‚ê‚Î‚¢‚¢‚Ì‚Å‚¨èŒyŠÈ’Pİ’èB
-‚RD‘Šè‚Éƒ[ƒ‹‚ª“Í‚¢‚½‚©A‘—MŒ‹‰Ê‚ª’¼‚¿‚É‚í‚©‚éB
+ï¼‘ï¼ãƒ—ãƒ­ãƒã‚¤ãƒ€ã®SMTPã‚µãƒ¼ãƒãƒ¼ãŒæ··ã‚“ã§ã„ã‚‹æ™‚ã«é«˜é€Ÿãªãƒ¡ãƒ¼ãƒ«é€ä¿¡ã‚’æœŸå¾…ã§ãã¾ã™ã€‚
+ï¼’ï¼ç›¸æ‰‹ã®ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ã ã‘ã‚’çŸ¥ã£ã¦ã„ã‚Œã°ã„ã„ã®ã§ãŠæ‰‹è»½ç°¡å˜è¨­å®šã€‚
+ï¼“ï¼ç›¸æ‰‹ã«ãƒ¡ãƒ¼ãƒ«ãŒå±Šã„ãŸã‹ã€é€ä¿¡çµæœãŒç›´ã¡ã«ã‚ã‹ã‚‹ã€‚
 
-y“Á’¥z
-‚PDŒ–¼A–{•¶A‘—MÒ–¼A‚·‚×‚Ä“ú–{Œê‚É‘Î‰‚µ‚Ä‚¢‚Ü‚·B(JIS)
-‚QD“Y•tƒtƒ@ƒCƒ‹‚Ì‘—M‚ª‰Â”\B
-‚RDMFC“™‚ğg‚Á‚Ä‚¢‚È‚¢‚½‚ßƒvƒƒOƒ‰ƒ€‚ÌƒTƒCƒY‚ª¬‚³‚­A‚‘¬B
-‚SDƒXƒŒƒbƒh‚ğg—p‚µ‚Ä‚¢‚é‚Ì‚ÅA‘—M‚µ‚Ä‚¢‚éŠÔ‚àƒXƒ€[ƒY‚Èì‹Æ‚ª‰Â”\B
-‚TDVisualStyle‚É‘Î‰‚µ‚Ä‚¢‚éB
+ã€ç‰¹å¾´ã€‘
+ï¼‘ï¼ä»¶åã€æœ¬æ–‡ã€é€ä¿¡è€…åã€ã™ã¹ã¦æ—¥æœ¬èªã«å¯¾å¿œã—ã¦ã„ã¾ã™ã€‚(JIS)
+ï¼’ï¼æ·»ä»˜ãƒ•ã‚¡ã‚¤ãƒ«ã®é€ä¿¡ãŒå¯èƒ½ã€‚
+ï¼“ï¼MFCç­‰ã‚’ä½¿ã£ã¦ã„ãªã„ãŸã‚ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®ã‚µã‚¤ã‚ºãŒå°ã•ãã€é«˜é€Ÿã€‚
+ï¼”ï¼ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’ä½¿ç”¨ã—ã¦ã„ã‚‹ã®ã§ã€é€ä¿¡ã—ã¦ã„ã‚‹é–“ã‚‚ã‚¹ãƒ ãƒ¼ã‚ºãªä½œæ¥­ãŒå¯èƒ½ã€‚
+ï¼•ï¼VisualStyleã«å¯¾å¿œã—ã¦ã„ã‚‹ã€‚
 								
 																			2004/07/31
 																			program by kimoto
@@ -31,7 +31,7 @@ Smile-Mailer‚ÍAƒvƒƒoƒCƒ_‚ÌSMTPƒT[ƒo[‚ğ—˜—p‚¹‚¸‚Éƒ[ƒ‹‚ğ‘—M‚·‚éƒc[ƒ‹‚Å‚·B
 
 
 /*
- *	ƒƒCƒ“ŠÖ”
+ *	ãƒ¡ã‚¤ãƒ³é–¢æ•°
  */
 BOOL WINAPI WinMain(HINSTANCE hInstance,
 					HINSTANCE hPrevInstance,
@@ -46,7 +46,7 @@ BOOL WINAPI WinMain(HINSTANCE hInstance,
 
 
 /*
- *	ƒƒCƒ“‚Ìƒ_ƒCƒAƒƒOƒvƒƒV[ƒWƒƒ
+ *	ãƒ¡ã‚¤ãƒ³ã®ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£
  */
 LRESULT CALLBACK MainDlgProc(HWND hDlg,
 						 UINT msg,
@@ -58,7 +58,7 @@ LRESULT CALLBACK MainDlgProc(HWND hDlg,
 
 	switch(msg){
 	case WM_SENDMAIL:
-		/*SendMailThread‚©‚ç‚ÌƒƒbƒZ[ƒW‚ª‚±‚±‚ÌlParam‚É—ˆ‚é*/
+		/*SendMailThreadã‹ã‚‰ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒã“ã“ã®lParamã«æ¥ã‚‹*/
 		SetDlgItemText(hDlg,IDC_RESULT,(char *)lParam);
 		return TRUE;
 	case WM_INITDIALOG:
@@ -70,7 +70,7 @@ LRESULT CALLBACK MainDlgProc(HWND hDlg,
 			GetAttachFilePath(hDlg);
 			return TRUE;
 		case IDSEND:
-			/*ƒ[ƒ‹‘—M—p‚ÌƒXƒŒƒbƒh‚Ìì¬*/
+			/*ãƒ¡ãƒ¼ãƒ«é€ä¿¡ç”¨ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã®ä½œæˆ*/
 			hThread = CreateThread(NULL,0,SendMailThread,(LPVOID)hDlg,0,&dwID);
 			return TRUE;
 		case IDCANCEL:
@@ -79,7 +79,7 @@ LRESULT CALLBACK MainDlgProc(HWND hDlg,
 		}
 		return TRUE;
 	case WM_DESTROY:
-		/*ƒXƒŒƒbƒh‚ğ”jŠü‚·‚é*/
+		/*ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’ç ´æ£„ã™ã‚‹*/
 		CloseHandle(hThread);
 		ExitApplication(hDlg);
 		EndDialog(hDlg,0);
@@ -93,25 +93,25 @@ LRESULT CALLBACK MainDlgProc(HWND hDlg,
 
 
 /*
- *	‚±‚ÌƒvƒƒOƒ‰ƒ€‚Ì‰Šú‰»ˆ—
- *	å‚ÉAİ’èƒtƒ@ƒCƒ‹‚©‚ç‚Ì“Ç‚İ‚İ‚Æ”½‰f
+ *	ã“ã®ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®åˆæœŸåŒ–å‡¦ç†
+ *	ä¸»ã«ã€è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ã®èª­ã¿è¾¼ã¿ã¨åæ˜ 
  */
 BOOL InitApplication(HWND hDlg)
 {
 	HWND hCombo;
 	char buffer[256]="";
 
-	/*İ’èƒtƒ@ƒCƒ‹‚Ì•Û‘¶êŠ‚Ìİ’è*/
+	/*è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã®ä¿å­˜å ´æ‰€ã®è¨­å®š*/
 	InitIniFilePath(ini_filepath);
 
-	/*Šî–{“I‚Èİ’è‚Ì“Ç‚İ‚İAİ’è*/
+	/*åŸºæœ¬çš„ãªè¨­å®šã®èª­ã¿è¾¼ã¿ã€è¨­å®š*/
 	LoadConfig(GetDlgItem(hDlg,IDC_MAILFROM),"MAIL","MAIL FROM",ini_filepath);
 	LoadConfig(GetDlgItem(hDlg,IDC_MAILTO),"MAIL","MAIL TO",ini_filepath);
 	LoadConfig(GetDlgItem(hDlg,IDC_SENDER),"MAIL","FROM",ini_filepath);
 	LoadConfig(GetDlgItem(hDlg,IDC_DNSSERVER),"OPTION","DNS SERVER",ini_filepath);
 	LoadConfig(GetDlgItem(hDlg,IDC_PCNAME),"OPTION","PC NAME",ini_filepath);
 
-	/*ƒ[ƒ‹‚Ì—Dæ“x‚Ì‰Šú‰»*/
+	/*ãƒ¡ãƒ¼ãƒ«ã®å„ªå…ˆåº¦ã®åˆæœŸåŒ–*/
 	hCombo = GetDlgItem(hDlg,IDC_MAILPRIORITY);
 	ComboBox_AddString(hCombo,"1 (Highest)");
 	ComboBox_AddString(hCombo,"2 (High)");
@@ -119,10 +119,10 @@ BOOL InitApplication(HWND hDlg)
 	ComboBox_AddString(hCombo,"4 (Low)");
 	ComboBox_AddString(hCombo,"5 (Lowest)");
 	
-	/*—Dæ“x‚Ì3,Normal‚ğ‰Šú‚Å‘I‘ğ‚·‚é*/
+	/*å„ªå…ˆåº¦ã®3,Normalã‚’åˆæœŸã§é¸æŠã™ã‚‹*/
 	ComboBox_SetCurSel(hCombo,2);
 
-	/*Œ‹‰Ê‚ğ•\¦‚·‚éƒXƒ^ƒeƒBƒbƒNƒeƒLƒXƒg‚Ì‰Šú‰»*/
+	/*çµæœã‚’è¡¨ç¤ºã™ã‚‹ã‚¹ã‚¿ãƒ†ã‚£ãƒƒã‚¯ãƒ†ã‚­ã‚¹ãƒˆã®åˆæœŸåŒ–*/
 	StringTableSetWindowText(GetDlgItem(hDlg,IDC_RESULT),IDS_READY);
 
 	return TRUE;
@@ -130,8 +130,8 @@ BOOL InitApplication(HWND hDlg)
 
 
 /*
- *	iniƒtƒ@ƒCƒ‹‚Ì•Û‘¶êŠ‚Ìİ’è
- *	ƒvƒƒOƒ‰ƒ€‚ÌƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ
+ *	iniãƒ•ã‚¡ã‚¤ãƒ«ã®ä¿å­˜å ´æ‰€ã®è¨­å®š
+ *	ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®ã‚«ãƒ¬ãƒ³ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª
  */
 BOOL InitIniFilePath(char *inipath)
 {
@@ -148,7 +148,7 @@ BOOL InitIniFilePath(char *inipath)
 }
 
 /*
- *	‚±‚ÌƒvƒƒOƒ‰ƒ€‚ÌI—¹ˆ—
+ *	ã“ã®ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®çµ‚äº†å‡¦ç†
  */
 BOOL ExitApplication(HWND hDlg)
 {
@@ -165,7 +165,7 @@ BOOL ExitApplication(HWND hDlg)
 
 
 /*
- *	ƒ[ƒ‹‘—MƒXƒŒƒbƒh
+ *	ãƒ¡ãƒ¼ãƒ«é€ä¿¡ã‚¹ãƒ¬ãƒƒãƒ‰
  */
 DWORD WINAPI SendMailThread(LPVOID lpParam)
 {
@@ -173,8 +173,8 @@ DWORD WINAPI SendMailThread(LPVOID lpParam)
 	HWND hDlg;
 	char attach_filepath[MAX_PATH];
 	BOOL attach_exist;
-	int mailbody_len;			/*–{•¶‚Ì’·‚³*/
-	int subject_len;			/*Œ–¼‚Ì’·‚³*/
+	int mailbody_len;			/*æœ¬æ–‡ã®é•·ã•*/
+	int subject_len;			/*ä»¶åã®é•·ã•*/
 
 	hDlg = (HWND)lpParam;
 
@@ -192,23 +192,23 @@ DWORD WINAPI SendMailThread(LPVOID lpParam)
 	strcpy(mdat.mailer,"SMILE MAILER");
 	strcpy(mdat.reply,mdat.from);
 
-	/*“Y•tƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚ŞA*/
+	/*æ·»ä»˜ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚€ã€*/
 	GetDlgItemText(hDlg,IDC_ATTACHFILENAME,attach_filepath,sizeof(attach_filepath));
 	attach_exist = CheckFileExist(attach_filepath);
 	if(attach_exist == TRUE){
-		/*ŠÖ”“à•”‚Åƒƒ‚ƒŠ‚ğŠ„‚è“–‚Ä‚é‚Ì‚ÅA•K‚¸Œã‚Å‰ğ•ú‚·‚é‚±‚ÆB*/
+		/*é–¢æ•°å†…éƒ¨ã§ãƒ¡ãƒ¢ãƒªã‚’å‰²ã‚Šå½“ã¦ã‚‹ã®ã§ã€å¿…ãšå¾Œã§è§£æ”¾ã™ã‚‹ã“ã¨ã€‚*/
 		if(ReadAttachFile(attach_filepath,&mdat) == FALSE){
 			StringTableSendMessageBeep(hDlg,WM_SENDMAIL,
 					IDS_ERROR_READ_ATTACH_FILE,MB_ICONEXCLAMATION);
 		}
 	}
 
-	/*–{•¶‚ğƒ_ƒCƒAƒƒOƒ{ƒbƒNƒX‚©‚ç“Ç‚İ‚ŞA‰ğ•ú‚ğ–Y‚ê‚¸‚É*/
+	/*æœ¬æ–‡ã‚’ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãƒœãƒƒã‚¯ã‚¹ã‹ã‚‰èª­ã¿è¾¼ã‚€ã€è§£æ”¾ã‚’å¿˜ã‚Œãšã«*/
 	mailbody_len = GetWindowTextLength(GetDlgItem(hDlg,IDC_MAILBODY));
 	mdat.body = (char *)GlobalAlloc(GMEM_FIXED,mailbody_len + 1);
 	GetDlgItemText(hDlg,IDC_MAILBODY,mdat.body,mailbody_len + 1);
 
-	/*Œ–¼‚ğƒ_ƒCƒAƒƒOƒ{ƒbƒNƒX‚©‚ç“Ç‚İ‚ŞA‰ğ•ú‚ğ–Y‚ê‚¸‚É*/
+	/*ä»¶åã‚’ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãƒœãƒƒã‚¯ã‚¹ã‹ã‚‰èª­ã¿è¾¼ã‚€ã€è§£æ”¾ã‚’å¿˜ã‚Œãšã«*/
 	subject_len = GetWindowTextLength(GetDlgItem(hDlg,IDC_MAILSUBJECT));
 	mdat.subject = (char *)GlobalAlloc(GMEM_FIXED,subject_len + 1);
 	GetDlgItemText(hDlg,IDC_MAILSUBJECT,mdat.subject,subject_len + 1);
@@ -223,8 +223,8 @@ DWORD WINAPI SendMailThread(LPVOID lpParam)
 }
 
 /*
- *	MXƒŒƒR[ƒh‚ğæ“¾‚µ‚ÄA‚»‚Ìƒ[ƒ‹ƒT[ƒo[‚ÉÚ‘±‚µ‚Ä
- *	ƒ[ƒ‹‘—M‚ğ‚·‚é
+ *	MXãƒ¬ã‚³ãƒ¼ãƒ‰ã‚’å–å¾—ã—ã¦ã€ãã®ãƒ¡ãƒ¼ãƒ«ã‚µãƒ¼ãƒãƒ¼ã«æ¥ç¶šã—ã¦
+ *	ãƒ¡ãƒ¼ãƒ«é€ä¿¡ã‚’ã™ã‚‹
  */
 BOOL GetMXAndSendMail(HWND hDlg,MAILDATA *mdat,BOOL attach_exist)
 {
@@ -235,11 +235,11 @@ BOOL GetMXAndSendMail(HWND hDlg,MAILDATA *mdat,BOOL attach_exist)
 
 	lpmx = mx;
 
-	/*‘—MæƒAƒhƒŒƒX‚©‚çMXƒŒƒR[ƒh‚ğæ“¾*/
+	/*é€ä¿¡å…ˆã‚¢ãƒ‰ãƒ¬ã‚¹ã‹ã‚‰MXãƒ¬ã‚³ãƒ¼ãƒ‰ã‚’å–å¾—*/
 	GetDlgItemText(hDlg,IDC_DNSSERVER,dns_addr,sizeof(dns_addr));
 	SplitDomainName(mdat->to,domain);
 	StringTableSendMessage(hDlg,WM_SENDMAIL,IDS_QUERY_DNS_SERVER);
-	Sleep(300);		/*‚©‚Á‚±‚æ‚­Œ©‚¹‚é‚½‚ßA”²‚©‚µ‚Ä‚à\‚í‚È‚¢B*/
+	Sleep(300);		/*ã‹ã£ã“ã‚ˆãè¦‹ã›ã‚‹ãŸã‚ã€æŠœã‹ã—ã¦ã‚‚æ§‹ã‚ãªã„ã€‚*/
 	
 	if(GetMXRecord(domain,dns_addr,lpmx) != GETMX_ERROR_SUCCESS){
 		StringTableSendMessageBeep(hDlg,WM_SENDMAIL,
@@ -247,7 +247,7 @@ BOOL GetMXAndSendMail(HWND hDlg,MAILDATA *mdat,BOOL attach_exist)
 		return FALSE;
 	}
 
-	/*MXƒŒƒR[ƒh‚ğ—Š‚è‚É1‚Â‚¸‚Â‡”Ô‚Éƒ[ƒ‹‘—MA¬Œ÷‚µ‚½‚çƒ‹[ƒv‚ğ”²‚¯‚é*/
+	/*MXãƒ¬ã‚³ãƒ¼ãƒ‰ã‚’é ¼ã‚Šã«1ã¤ãšã¤é †ç•ªã«ãƒ¡ãƒ¼ãƒ«é€ä¿¡ã€æˆåŠŸã—ãŸã‚‰ãƒ«ãƒ¼ãƒ—ã‚’æŠœã‘ã‚‹*/
 	while(lpmx->flag != FALSE){
 		StringTableSendMessage(hDlg,WM_SENDMAIL,IDS_SENDING_MAIL);
 
@@ -259,7 +259,7 @@ BOOL GetMXAndSendMail(HWND hDlg,MAILDATA *mdat,BOOL attach_exist)
 		}
 		lpmx++;
 	}
-	/*‚±‚±‚Éˆ—‚ª‚­‚é‚Æ‚¢‚¤‚±‚Æ‚ÍA¸”s‚µ‚½*/
+	/*ã“ã“ã«å‡¦ç†ãŒãã‚‹ã¨ã„ã†ã“ã¨ã¯ã€å¤±æ•—ã—ãŸæ™‚*/
 	StringTableSendMessageBeep(hDlg,WM_SENDMAIL,
 		IDS_ERROR_SENDMAIL,MB_ICONEXCLAMATION);
 
@@ -267,19 +267,19 @@ BOOL GetMXAndSendMail(HWND hDlg,MAILDATA *mdat,BOOL attach_exist)
 }
 
 /*
- *	ƒ_ƒCƒAƒƒOƒ{ƒbƒNƒX‚É“ü—Í‚³‚ê‚½ƒf[ƒ^‚ª³‚µ‚¢‚à‚Ì‚©’²‚×‚éŠÖ”
+ *	ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãƒœãƒƒã‚¯ã‚¹ã«å…¥åŠ›ã•ã‚ŒãŸãƒ‡ãƒ¼ã‚¿ãŒæ­£ã—ã„ã‚‚ã®ã‹èª¿ã¹ã‚‹é–¢æ•°
  */
 BOOL CheckInputData(HWND hDlg)
 {
 	char buffer[MAX_BUFFER_SIZE]="";
 
-	/*ƒ[ƒ‹”­MŒ³*/
+	/*ãƒ¡ãƒ¼ãƒ«ç™ºä¿¡å…ƒ*/
 	//GetDlgItemText(hDlg,IDC_MAILFROM,buffer,sizeof(buffer));
 	/*if(IsEmpty(buffer)){
 		StringTableSendMessage(hDlg,WM_SENDMAIL,IDS_ERROR_MAILFROM_EMPTY);
 		return FALSE;
 	}*/
-	/*ƒ[ƒ‹”­Mæ*/
+	/*ãƒ¡ãƒ¼ãƒ«ç™ºä¿¡å…ˆ*/
 	GetDlgItemText(hDlg,IDC_MAILTO,buffer,sizeof(buffer));
 	if(IsEmpty(buffer)){
 		StringTableSendMessageBeep(hDlg,WM_SENDMAIL,
@@ -291,7 +291,7 @@ BOOL CheckInputData(HWND hDlg)
 			IDS_ERROR_MAILTO_FOUL,MB_ICONEXCLAMATION);
 		return FALSE;
 	}
-	/*DNSƒT[ƒo[‚ÌIPƒAƒhƒŒƒX*/
+	/*DNSã‚µãƒ¼ãƒãƒ¼ã®IPã‚¢ãƒ‰ãƒ¬ã‚¹*/
 	GetDlgItemText(hDlg,IDC_DNSSERVER,buffer,sizeof(buffer));
 	if(IsEmpty(buffer)){
 		StringTableSendMessageBeep(hDlg,WM_SENDMAIL,
@@ -307,7 +307,7 @@ BOOL CheckInputData(HWND hDlg)
 }
 
 /*
- *	w’è‚µ‚½ƒoƒbƒtƒ@‚ªA‹ó‚¾‚Á‚½‚Æ‚«TRUE
+ *	æŒ‡å®šã—ãŸãƒãƒƒãƒ•ã‚¡ãŒã€ç©ºã ã£ãŸã¨ãTRUE
  */
 BOOL IsEmpty(char *buffer)
 {
@@ -318,14 +318,14 @@ BOOL IsEmpty(char *buffer)
 }
 
 /*
- *	w’è‚µ‚½ƒAƒhƒŒƒX‚ª•s³‚ÈŒ`®‚¾‚Á‚½‚çTRUE
+ *	æŒ‡å®šã—ãŸã‚¢ãƒ‰ãƒ¬ã‚¹ãŒä¸æ­£ãªå½¢å¼ã ã£ãŸã‚‰TRUE
  */
 BOOL IsFoulMailAddr(char *address)
 {
 	char *strptr;
 
-	/*@‚Ì‚ ‚Æ‚É.‚ª‚P‚ÂŠÜ‚Ü‚ê‚Ä‚¢‚é‚©’²‚×‚é‚¾‚¯‚Ì’Pƒ‚ÈƒAƒ‹ƒSƒŠƒYƒ€*/
-	/*ƒoƒO‚Í‚È‚¢‚Æv‚¤*/
+	/*@ã®ã‚ã¨ã«.ãŒï¼‘ã¤å«ã¾ã‚Œã¦ã„ã‚‹ã‹èª¿ã¹ã‚‹ã ã‘ã®å˜ç´”ãªã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ */
+	/*ãƒã‚°ã¯ãªã„ã¨æ€ã†*/
 	strptr = strstr(address,"@");
 	if(strptr == NULL){
 		return TRUE;
@@ -341,15 +341,15 @@ BOOL IsFoulMailAddr(char *address)
 }
 
 /*
- *	w’è‚µ‚½ƒAƒhƒŒƒX‚ªAIPƒAƒhƒŒƒX(IPv4)Œ`®‚©’²‚×‚ÄA
- *	•s³‚ÈŒ`®‚¾‚Á‚½‚çTRUE‚ğ•Ô‚·
- *	(192.168.0.1) => ³‚µ‚¢‚©‚çFALSE
+ *	æŒ‡å®šã—ãŸã‚¢ãƒ‰ãƒ¬ã‚¹ãŒã€IPã‚¢ãƒ‰ãƒ¬ã‚¹(IPv4)å½¢å¼ã‹èª¿ã¹ã¦ã€
+ *	ä¸æ­£ãªå½¢å¼ã ã£ãŸã‚‰TRUEã‚’è¿”ã™
+ *	(192.168.0.1) => æ­£ã—ã„ã‹ã‚‰FALSE
  */
 BOOL IsFoulIPAddr(char *ip_addr)
 {
 	char *strptr;
 
-	/*.‚ª‚R‚ÂˆÈã‚ ‚é‚©‚Ç‚¤‚©’²‚×‚é‚¾‚¯‚Ì’Pƒ‚ÈƒAƒ‹ƒSƒŠƒYƒ€*/
+	/*.ãŒï¼“ã¤ä»¥ä¸Šã‚ã‚‹ã‹ã©ã†ã‹èª¿ã¹ã‚‹ã ã‘ã®å˜ç´”ãªã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ */
 	strptr = strstr(ip_addr,".");
 	if(strptr == NULL){
 		return TRUE;

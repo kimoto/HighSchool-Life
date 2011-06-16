@@ -20,12 +20,12 @@ my $diary_file = 'diary.txt';
 MAIN:{
 	my $html;
 
-	# ¥Ø¥Ã¥À¡¼ÉôÊ¬¤ÎºîÀ®
+	# ãƒ˜ãƒƒãƒ€ãƒ¼éƒ¨åˆ†ã®ä½œæˆ
 	$html = read_file("$template_dir/header.html");
 	$html =~ s/=TITLE=/$title/g;
 	$html =~ s/=CHARSET=/$charset/;
 
-	# Æüµ­data¤ò¼èÆÀ
+	# æ—¥è¨˜dataã‚’å–å¾—
 	GET_DATE:{
 		my $diary = get_diary($diary_file);
 		chomp($diary);
@@ -34,12 +34,12 @@ MAIN:{
 	
 		$template =~ s/=DIARY=/$diary/g;
 		
-		# URL¤òÊÑ´¹¤¹¤ë
+		# URLã‚’å¤‰æ›ã™ã‚‹
 		$template =~ s#(http://[\w\d\+\-\=\/\~\%\@\&\#\.\?]+)#<a href="$1">$1</a>#g;
 		$html .= $template;
 	}
 
-	# ¥á¥Ë¥å¡¼²èÌÌ
+	# ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢
 	MENU:{
 		my $template = read_file("$template_dir/menu.html");
 		$template =~ s/=CGIPATH=/admin.cgi/g;
@@ -48,16 +48,16 @@ MAIN:{
 		$html .= $template;
 	}
 
-	# Ãøºî¸¢¾ğÊóÉô¤ÎºîÀ®
+	# è‘—ä½œæ¨©æƒ…å ±éƒ¨ã®ä½œæˆ
 	$html .= read_file("$template_dir/copyright.html");
 
-	# ½ªÎ»ÉôÊ¬
+	# çµ‚äº†éƒ¨åˆ†
 	$html .=  "</body>\n</html>\n";
 
-	# ÆüËÜ¸ì¤ËÊÑ´¹
+	# æ—¥æœ¬èªã«å¤‰æ›
 	jcode::convert(\$html,'euc');
 
-	# ·ë²Ì¤òÉ½¼¨
+	# çµæœã‚’è¡¨ç¤º
 	open(my $fh=>'> index.html') or die $!;
 	print $fh $html;
 	close($fh);
@@ -68,7 +68,7 @@ MAIN:{
 	exit;
 }
 
-# »ØÄê¤·¤¿¥Õ¥¡¥¤¥ë¤òÆÉ¤ß¹ş¤ó¤ÇÊÖ¤¹
+# æŒ‡å®šã—ãŸãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚“ã§è¿”ã™
 sub read_file($)
 {
 	my $file_name = shift;
@@ -84,17 +84,17 @@ sub read_file($)
 	return $buf;
 }
 
-# »ØÄê¤·¤¿Æüµ­¥Õ¥¡¥¤¥ë¤Î¥Ç¡¼¥¿¤ò¼èÆÀ
-# HTML¤ËÊÑ´¹¤·¤ÆÊÖ¤¹
+# æŒ‡å®šã—ãŸæ—¥è¨˜ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
+# HTMLã«å¤‰æ›ã—ã¦è¿”ã™
 sub get_diary($)
 {
 	my $file_name = shift;
 	my $result = '';
 
-	# ¥í¥°¥Õ¥¡¥¤¥ë¤«¤é¥Ç¡¼¥¿¤ò¼èÆÀ
+	# ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
 	open(my $in,"$file_name") or die("open error: $file_name");
 
-	# ºÇ¿·¤Î¤¬¾å¤Ë¤¯¤ë¤è¤¦¤Ë
+	# æœ€æ–°ã®ãŒä¸Šã«ãã‚‹ã‚ˆã†ã«
 	my @buf = <$in>;
 	@buf = reverse @buf;
 
@@ -103,10 +103,10 @@ sub get_diary($)
 		if($count > 10 ){
 			last;
 		}
-		# Date,Title,Message¤Î½ç
+		# Date,Title,Messageã®é †
 		my($date,$title,$msg) = split(/,/,$line,3);
 
-		# html¤ò·ÁÀ®¤¹¤ë
+		# htmlã‚’å½¢æˆã™ã‚‹
 		my $day = "<h2>$date</h2>\n";
 		$day .= "<h3>$title</h3>\n";
 		$day .= "<p>$msg</p>\n";
