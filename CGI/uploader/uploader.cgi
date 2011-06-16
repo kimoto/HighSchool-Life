@@ -522,7 +522,7 @@ sub html_footer()
 <!-- Copyright -->
 <p id="copyright">
 	Copyright(C) 2004 kimoto All Rights Reserved.
-	<a href="http://black-earth.cun.jp/">&gt;&gt;</a>
+	<a href="http://example.com/">&gt;&gt;</a>
 </p>
 
 </body>
