@@ -1,0 +1,53 @@
+body{
+	color: #00aa00;
+	background-color: black;
+	font-family: sans-serif;
+	font-size: 14px;
+}
+
+h1{
+	color: red;
+}
+
+input{
+	border: solid 1px #00aa00;
+	color: #00aa00;
+	background-color: black;
+}
+
+#post_form{
+}
+
+#page_index{
+}
+
+#upfile td{
+	border: solid 1px #00aa00;
+}
+
+#permission{
+}
+
+#delete_form input{
+	width: 50px;
+}
+
+#valid img{
+	border-width: 0px;
+}
+
+#copyright{
+}
+
+a:link{
+	color: red;
+}
+a:visited{
+	color: red;
+}
+a:hover{
+	color: #ffa500;
+}
+a:active{
+	color: red;
+}
